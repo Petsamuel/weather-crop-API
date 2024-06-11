@@ -2,10 +2,13 @@ from fastapi import FastAPI, HTTPException
 import requests
 import os
 import json
+import openmeteo_requests
+import requests_cache
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from models import WeatherData, Coordinates
 from typing import List, Dict
+from retry_requests import retry
 
 
 # Load environment variables from the .env file
@@ -17,12 +20,17 @@ WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 WEATHER_API_URL = os.getenv("WEATHER_API_URL")
 GEOCODING_API_URL = os.getenv("GEOCODING_API_URL")
 FORECAST_API_URL = os.getenv("FORECAST_API_URL")
-
+WEATHER_API_KEY2 = os.getenv("WEATHER_API_KEY2")
+WEATHE_HISTORICAL_API_URL = os.getenv("WEATHE_HISTORICAL_API_URL")
 # Load crop data from crops.json
 with open("crops.json", "r") as f:
     crop_data = json.load(f)
-    
-    
+
+
+# Setup the Open-Meteo API client with cache and retry on error
+cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
+retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
+openmeteo = openmeteo_requests.Client(session = retry_session)
 
 # Root endpoint
 @app.get("/")
@@ -154,7 +162,6 @@ def recommend_crops(weather_data, crop_data):
         recommended = crop_data["rainy"]
     else:
         recommended = crop_data["default"]
-    
     return recommended
 
 
@@ -218,8 +225,60 @@ def recommend_crops(weather_data, crop_data):
         recommended = crop_data["rainy"]
     else:
         recommended = crop_data["default"]
-    
     return recommended
+
+
+# api for getting weather data for a single city
+@app.get("/weather/history/{city}", status_code=200)
+def get_weather_history(city: str):
+    try:
+        lat, lon = get_coordinates(city)
+        weather_data = get_weather_histories(lat, lon)
+        return {"status": "success", "data": weather_data.dict()}
+    except HTTPException as e:
+        return {"status": "error", "detail": e.detail}
+
+    
+def get_coordinates(city: str):
+    params = {
+        'q': f"{city},NG",
+        'limit': 1,
+        'appid': WEATHER_API_KEY
+    }
+    response = requests.get(GEOCODING_API_URL, params=params)
+    if response.status_code != 200 or len(response.json()) == 0:
+        raise HTTPException(status_code=404, detail="City not found or not in Nigeria")
+    data = response.json()[0]
+    return data['lat'], data['lon']
+
+def get_weather_histories(lat:float, lon:float):
+    params ={
+        "latitude":lat,
+        "longitude":lon,
+        "start_date": "2024-05-26",
+	    "end_date": "2024-06-09",
+        "hourly": "temperature_2m"
+    }
+    
+    responses = openmeteo.weather_api(WEATHE_HISTORICAL_API_URL, params=params)
+    response = responses[0]
+    
+    print(f"Coordinates {response.Latitude()}°N {response.Longitude()}°E")
+    print(f"Elevation {response.Elevation()} m asl")
+    print(f"Timezone {response.Timezone()} {response.TimezoneAbbreviation()}")
+    print(f"Timezone difference to GMT+0 {response.UtcOffsetSeconds()} s")
+    
+    # Process hourly data. The order of variables needs to be the same as requested.
+    hourly = response.Hourly()
+    hourly_temperature_2m = hourly.Variables(0).ValuesAsNumpy()
+
+    hourly_data = {"date": pd.date_range(
+        start = pd.to_datetime(hourly.Time(), unit = "s", utc = True),
+        end = pd.to_datetime(hourly.TimeEnd(), unit = "s", utc = True),
+        freq = pd.Timedelta(seconds = hourly.Interval()),
+        inclusive = "left"
+    )}
+    hourly_data["temperature_2m"] = hourly_temperature_2m
 
 
 if __name__ == "__main__":
