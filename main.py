@@ -24,6 +24,7 @@ GEOCODING_API_URL = os.getenv("GEOCODING_API_URL")
 FORECAST_API_URL = os.getenv("FORECAST_API_URL")
 WEATHER_API_KEY2 = os.getenv("WEATHER_API_KEY2")
 WEATHER_HISTORICAL_API_URL = os.getenv("WEATHER_HISTORICAL_API_URL")
+CURRENT_AND_FORECAST_API_URL = os.getenv("CURRENT_AND_FORECAST_API_URL")
 # Load crop data from crops.json
 with open("crops.json", "r") as f:
     crop_data = json.load(f)
@@ -113,7 +114,8 @@ def current_weather(lat: float, lon: float):
         "latitude": lat,
         "longitude": lon,
         "current": ["temperature_2m", "apparent_temperature", "is_day", "precipitation", "rain", "cloud_cover", "surface_pressure", "wind_speed_10m", "wind_direction_10m", "wind_gusts_10m"],
-	    "hourly": "temperature_2m"
+	    "hourly": "temperature_2m",
+        "timezone": "Africa/Cairo"
     }
     responses = requests.get(WEATHER_API_KEY2, params=params)
     if responses.status_code == 200:
@@ -125,7 +127,22 @@ def current_weather(lat: float, lon: float):
     else:
         # Handle the case where the API response is not successful
         return {"error": "Failed to retrieve weather data"}
-    
+
+def historical_weather(lat:float, lon:float, start_date: str, end_date: str):
+    params = {
+	"latitude": 52.52,
+	"longitude": 13.41,
+	"start_date": start_date,
+	"end_date": end_date,
+	"daily": ["temperature_2m_max", "temperature_2m_mean", "sunrise", "sunset", "daylight_duration", "sunshine_duration", "precipitation_sum", "rain_sum", "snowfall_sum", "precipitation_hours"],
+	"timezone": "Africa/Cairo"
+}
+    responses = requests.get(WEATHER_API_KEY2, params=params)
+    if responses.status_code != 200:
+        raise HTTPException(status_code=404, detail="Weather data not found")
+    data = responses.json()
+    return data
+   
     
 # Root endpoint
 @app.get("/")
@@ -175,7 +192,7 @@ def get_weather_forecast(lat: float, lon: float):
     )
 
 
-@app.get("/weather/current/{city}", status_code=200)
+@app.get("/current/weather/{city}", status_code=200)
 def get_weather_current(city: str):
     lat, lon = get_coordinates(city)
     current_data = current_weather(lat, lon)
@@ -183,6 +200,21 @@ def get_weather_current(city: str):
     
     return {"status": "success", "data": current_data}
 
+
+
+# @app.get("/current/weather/forecast/{city}", status_code=200)
+# def get_weather_and_current_forecast(city: str):
+#     lat, lon = get_coordinates(city)
+#     current_data_ = current_weather_forecast(lat, lon)
+    
+#     return {"status": "success", "current_data": current_data_, }    
+
+
+@app.get("/weather/history/{city}")
+def historical_weather_data(city: str, start_date: str, end_date: str):
+    lat, lon = get_coordinates(city)
+    historical_data = historical_weather(lat, lon, start_date, end_date)
+    return {"status": "success", "data": historical_data}
     
 
     
