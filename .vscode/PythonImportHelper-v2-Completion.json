@@ -1,0 +1,352 @@
+[
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "openmeteo_requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "openmeteo_requests",
+        "description": "openmeteo_requests",
+        "detail": "openmeteo_requests",
+        "documentation": {}
+    },
+    {
+        "label": "requests_cache",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests_cache",
+        "description": "requests_cache",
+        "detail": "requests_cache",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "WeatherData",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Coordinates",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "retry",
+        "importPath": "retry_requests",
+        "description": "retry_requests",
+        "isExtraImport": true,
+        "detail": "retry_requests",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "read_root",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def read_root():\n    return {\"message\": \"Welcome to the Weather Crop API\"}\n# Get weather and recommendations for a city\n@app.get(\"/weather/{city}\", status_code=200)\ndef get_weather_and_crop_recommendations(city: str):\n    try:\n        lat, lon = get_coordinates(city)\n        weather_data = get_weather(lat, lon)\n        recommended_crops = recommend_crops(weather_data.dict(), crop_data)\n        return {\"status\": \"success\", \"data\": weather_data.dict(), \"recommended_crops\": recommended_crops}",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_weather_and_crop_recommendations",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_weather_and_crop_recommendations(city: str):\n    try:\n        lat, lon = get_coordinates(city)\n        weather_data = get_weather(lat, lon)\n        recommended_crops = recommend_crops(weather_data.dict(), crop_data)\n        return {\"status\": \"success\", \"data\": weather_data.dict(), \"recommended_crops\": recommended_crops}\n    except HTTPException as e:\n        return {\"status\": \"error\", \"detail\": e.detail}\n# Get coordinates of a city\ndef get_coordinates(city: str):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_coordinates",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_coordinates(city: str):\n    params = {\n        'q': f\"{city},NG\",\n        'limit': 1,\n        'appid': WEATHER_API_KEY\n    }\n    response = requests.get(GEOCODING_API_URL, params=params)\n    if response.status_code != 200 or len(response.json()) == 0:\n        raise HTTPException(status_code=404, detail=\"City not found or not in Nigeria\")\n    data = response.json()[0]",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_weather",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_weather(lat: float, lon: float):\n    params = {\n        'lat': lat,\n        'lon': lon,\n        'appid': WEATHER_API_KEY,\n        'units': 'metric'\n    }\n    response = requests.get(WEATHER_API_URL, params=params)\n    if response.status_code != 200:\n        raise HTTPException(status_code=404, detail=\"Weather data not found\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "recommend_crops",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def recommend_crops(weather_data, crop_data):\n    temp = weather_data['temp']\n    humidity = weather_data['humidity']\n    description = weather_data['description'].lower()\n    if temp > 20 and humidity < 50:\n        print(\"High temp, low humidity\")\n        return crop_data.get(\"high_temp_low_humidity\", [])\n    elif 20 >= temp > 15 and humidity >= 50:\n        print(\"Moderate temp, high humidity\")\n        return crop_data.get(\"moderate_temp_high_humidity\", [])",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_weather_forecast_and_crop_recommendations",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_weather_forecast_and_crop_recommendations(city: str):\n    try:\n        lat, lon = get_coordinates(city)\n        weather_data = get_weather_forecast(lat, lon)\n        recommended_crops = recommend_crops(weather_data.dict(), crop_data)\n        return {\"status\": \"success\", \"data\": weather_data.dict(), \"recommended_crops\": recommended_crops}\n    except HTTPException as e:\n        return {\"status\": \"error\", \"detail\": e.detail}\ndef get_weather_forecast(lat: float, lon: float):\n    params = {",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_weather_forecast",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_weather_forecast(lat: float, lon: float):\n    params = {\n        'lat': lat,\n        'lon': lon,\n        'appid': WEATHER_API_KEY,\n        'units': 'metric'\n    }\n    response = requests.get(WEATHER_API_URL, params=params)\n    if response.status_code != 200:\n        raise HTTPException(status_code=404, detail=\"Weather data not found\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_coordinates",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_coordinates(city: str):\n    params = {\n        'q': f\"{city},NG\",\n        'limit': 1,\n        'appid': WEATHER_API_KEY\n    }\n    response = requests.get(GEOCODING_API_URL, params=params)\n    if response.status_code != 200 or len(response.json()) == 0:\n        raise HTTPException(status_code=404, detail=\"City not found or not in Nigeria\")\n    data = response.json()[0]",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "recommend_crops",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def recommend_crops(weather_data, crop_data):\n    temp = weather_data[\"temp\"]\n    humidity = weather_data[\"humidity\"]\n    description = weather_data[\"description\"].lower()\n    recommended = []\n    if temp > 30 and humidity < 50:\n        recommended = crop_data[\"high_temp_low_humidity\"]\n    elif 20 <= temp <= 30 and humidity > 60:\n        recommended = crop_data[\"moderate_temp_high_humidity\"]\n    elif temp < 20:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_weather_history",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_weather_history(city: str):\n    try:\n        lat, lon = get_coordinates(city)\n        weather_data = get_weather_histories(lat, lon)\n        return {\"status\": \"success\", \"data\": weather_data}\n    except HTTPException as e:\n        return {\"status\": \"error\", \"detail\": e.detail}\ndef get_coordinates(city: str):\n    params = {\n        'q': f\"{city},NG\",",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_coordinates",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_coordinates(city: str):\n    params = {\n        'q': f\"{city},NG\",\n        'limit': 1,\n        'appid': WEATHER_API_KEY\n    }\n    response = requests.get(GEOCODING_API_URL, params=params)\n    if response.status_code != 200 or len(response.json()) == 0:\n        raise HTTPException(status_code=404, detail=\"City not found or not in Nigeria\")\n    data = response.json()[0]",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_weather_histories",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_weather_histories(lat: float, lon: float):\n    params = {\n        \"latitude\": lat,\n        \"longitude\": lon,\n        \"start_date\": \"2024-05-26\",\n        \"end_date\": \"2024-06-09\",\n        \"hourly\": \"temperature_2m\"\n    }\n    responses = openmeteo.weather_api(WEATHER_HISTORICAL_API_URL, params=params)\n    response = responses[0]",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\nload_dotenv()\n# importing all api keys from the.env file\nWEATHER_API_KEY = os.getenv(\"WEATHER_API_KEY\")\nWEATHER_API_URL = os.getenv(\"WEATHER_API_URL\")\nGEOCODING_API_URL = os.getenv(\"GEOCODING_API_URL\")\nFORECAST_API_URL = os.getenv(\"FORECAST_API_URL\")\nWEATHER_API_KEY2 = os.getenv(\"WEATHER_API_KEY2\")\nWEATHER_HISTORICAL_API_URL = os.getenv(\"WEATHE_HISTORICAL_API_URL\")\n# Load crop data from crops.json",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "WEATHER_API_KEY",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "WEATHER_API_KEY = os.getenv(\"WEATHER_API_KEY\")\nWEATHER_API_URL = os.getenv(\"WEATHER_API_URL\")\nGEOCODING_API_URL = os.getenv(\"GEOCODING_API_URL\")\nFORECAST_API_URL = os.getenv(\"FORECAST_API_URL\")\nWEATHER_API_KEY2 = os.getenv(\"WEATHER_API_KEY2\")\nWEATHER_HISTORICAL_API_URL = os.getenv(\"WEATHE_HISTORICAL_API_URL\")\n# Load crop data from crops.json\nwith open(\"crops.json\", \"r\") as f:\n    crop_data = json.load(f)\n# Setup the Open-Meteo API client with cache and retry on error",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "WEATHER_API_URL",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "WEATHER_API_URL = os.getenv(\"WEATHER_API_URL\")\nGEOCODING_API_URL = os.getenv(\"GEOCODING_API_URL\")\nFORECAST_API_URL = os.getenv(\"FORECAST_API_URL\")\nWEATHER_API_KEY2 = os.getenv(\"WEATHER_API_KEY2\")\nWEATHER_HISTORICAL_API_URL = os.getenv(\"WEATHE_HISTORICAL_API_URL\")\n# Load crop data from crops.json\nwith open(\"crops.json\", \"r\") as f:\n    crop_data = json.load(f)\n# Setup the Open-Meteo API client with cache and retry on error\ncache_session = requests_cache.CachedSession('.cache', expire_after = 3600)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "GEOCODING_API_URL",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "GEOCODING_API_URL = os.getenv(\"GEOCODING_API_URL\")\nFORECAST_API_URL = os.getenv(\"FORECAST_API_URL\")\nWEATHER_API_KEY2 = os.getenv(\"WEATHER_API_KEY2\")\nWEATHER_HISTORICAL_API_URL = os.getenv(\"WEATHE_HISTORICAL_API_URL\")\n# Load crop data from crops.json\nwith open(\"crops.json\", \"r\") as f:\n    crop_data = json.load(f)\n# Setup the Open-Meteo API client with cache and retry on error\ncache_session = requests_cache.CachedSession('.cache', expire_after = 3600)\nretry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "FORECAST_API_URL",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "FORECAST_API_URL = os.getenv(\"FORECAST_API_URL\")\nWEATHER_API_KEY2 = os.getenv(\"WEATHER_API_KEY2\")\nWEATHER_HISTORICAL_API_URL = os.getenv(\"WEATHE_HISTORICAL_API_URL\")\n# Load crop data from crops.json\nwith open(\"crops.json\", \"r\") as f:\n    crop_data = json.load(f)\n# Setup the Open-Meteo API client with cache and retry on error\ncache_session = requests_cache.CachedSession('.cache', expire_after = 3600)\nretry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)\nopenmeteo = openmeteo_requests.Client(session = retry_session)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "WEATHER_API_KEY2",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "WEATHER_API_KEY2 = os.getenv(\"WEATHER_API_KEY2\")\nWEATHER_HISTORICAL_API_URL = os.getenv(\"WEATHE_HISTORICAL_API_URL\")\n# Load crop data from crops.json\nwith open(\"crops.json\", \"r\") as f:\n    crop_data = json.load(f)\n# Setup the Open-Meteo API client with cache and retry on error\ncache_session = requests_cache.CachedSession('.cache', expire_after = 3600)\nretry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)\nopenmeteo = openmeteo_requests.Client(session = retry_session)\n# Root endpoint",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "WEATHER_HISTORICAL_API_URL",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "WEATHER_HISTORICAL_API_URL = os.getenv(\"WEATHE_HISTORICAL_API_URL\")\n# Load crop data from crops.json\nwith open(\"crops.json\", \"r\") as f:\n    crop_data = json.load(f)\n# Setup the Open-Meteo API client with cache and retry on error\ncache_session = requests_cache.CachedSession('.cache', expire_after = 3600)\nretry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)\nopenmeteo = openmeteo_requests.Client(session = retry_session)\n# Root endpoint\n@app.get(\"/\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "cache_session",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)\nretry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)\nopenmeteo = openmeteo_requests.Client(session = retry_session)\n# Root endpoint\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Welcome to the Weather Crop API\"}\n# Get weather and recommendations for a city\n@app.get(\"/weather/{city}\", status_code=200)\ndef get_weather_and_crop_recommendations(city: str):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "retry_session",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)\nopenmeteo = openmeteo_requests.Client(session = retry_session)\n# Root endpoint\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Welcome to the Weather Crop API\"}\n# Get weather and recommendations for a city\n@app.get(\"/weather/{city}\", status_code=200)\ndef get_weather_and_crop_recommendations(city: str):\n    try:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "openmeteo",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "openmeteo = openmeteo_requests.Client(session = retry_session)\n# Root endpoint\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Welcome to the Weather Crop API\"}\n# Get weather and recommendations for a city\n@app.get(\"/weather/{city}\", status_code=200)\ndef get_weather_and_crop_recommendations(city: str):\n    try:\n        lat, lon = get_coordinates(city)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "Coordinates",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Coordinates(BaseModel):\n    lat: float\n    lon: float\nclass WeatherData(BaseModel):\n    temp: float\n    humidity: int\n    wind_speed: float\n    description: str",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "WeatherData",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class WeatherData(BaseModel):\n    temp: float\n    humidity: int\n    wind_speed: float\n    description: str",
+        "detail": "models",
+        "documentation": {}
+    }
+]
