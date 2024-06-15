@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 from models import WeatherData, Coordinates
 from typing import List, Dict
-
+from fastapi.middleware.cors import CORSMiddleware
 from retry_requests import retry
 import pandas as pd
 
@@ -16,6 +16,19 @@ import pandas as pd
 # Load environment variables from the .env file
 app = FastAPI()
 load_dotenv()
+
+origins = [
+    "http://localhost:5173",  # Add your frontend's URL here
+    "https://weather-crop-api.vercel.app"  
+]
+#middleware app
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allow specific origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 # importing all api keys from the.env file
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
@@ -205,12 +218,11 @@ def get_weather_current(city: str):
 # @app.get("/current/weather/forecast/{city}", status_code=200)
 # def get_weather_and_current_forecast(city: str):
 #     lat, lon = get_coordinates(city)
-#     current_data_ = current_weather_forecast(lat, lon)
-    
+#     current_data_ = current_weather_forecast(lat, lon)  
 #     return {"status": "success", "current_data": current_data_, }    
 
 
-@app.get("/weather/history/{city}")
+@app.get("/weather/history/{city}/")
 def historical_weather_data(city: str, start_date: str, end_date: str):
     lat, lon = get_coordinates(city)
     historical_data = historical_weather(lat, lon, start_date, end_date)
