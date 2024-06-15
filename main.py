@@ -223,8 +223,7 @@ def get_weather_current(city: str):
 
 
 @app.get("/weather/history/{city}/{start_date}/{end_date}/")
-def historical_weather_data(city: str, start_date: str = Path(..., description="Start date in YYYY-MM-DD format"),
-    end_date: str = Path(..., description="End date in YYYY-MM-DD format")):
+def historical_weather_data(city: str, start_date: str, end_date: str):
     lat, lon = get_coordinates(city)
     historical_data = historical_weather(lat, lon, start_date, end_date)
     return {"status": "success", "data": historical_data}
