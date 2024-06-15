@@ -236,7 +236,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_weather_current(city: str):\n    lat, lon = get_coordinates(city)\n    current_data = current_weather(lat, lon)\n    return {\"status\": \"success\", \"data\": current_data}\n# @app.get(\"/current/weather/forecast/{city}\", status_code=200)\n# def get_weather_and_current_forecast(city: str):\n#     lat, lon = get_coordinates(city)\n#     current_data_ = current_weather_forecast(lat, lon)  \n#     return {\"status\": \"success\", \"current_data\": current_data_, }    \n@app.get(\"/weather/history/{city}/\")",
+        "peekOfCode": "def get_weather_current(city: str):\n    lat, lon = get_coordinates(city)\n    current_data = current_weather(lat, lon)\n    return {\"status\": \"success\", \"data\": current_data}\n# @app.get(\"/current/weather/forecast/{city}\", status_code=200)\n# def get_weather_and_current_forecast(city: str):\n#     lat, lon = get_coordinates(city)\n#     current_data_ = current_weather_forecast(lat, lon)  \n#     return {\"status\": \"success\", \"current_data\": current_data_, }    \n@app.get(\"/weather/history/{city}/{start_date}/{end_date}/\")",
         "detail": "main",
         "documentation": {}
     },
@@ -245,7 +245,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def historical_weather_data(city: str, start_date: str, end_date: str):\n    lat, lon = get_coordinates(city)\n    historical_data = historical_weather(lat, lon, start_date, end_date)\n    return {\"status\": \"success\", \"data\": historical_data}\nif __name__ == \"__main__\":\n    import uvicorn\n    uvicorn.run(app, host=\"localhost\", port=5000)",
+        "peekOfCode": "def historical_weather_data(city: str, start_date: str = Path(..., description=\"Start date in YYYY-MM-DD format\"),\n    end_date: str = Path(..., description=\"End date in YYYY-MM-DD format\")):\n    lat, lon = get_coordinates(city)\n    historical_data = historical_weather(lat, lon, start_date, end_date)\n    return {\"status\": \"success\", \"data\": historical_data}\nif __name__ == \"__main__\":\n    import uvicorn\n    uvicorn.run(app, host=\"localhost\", port=5000)",
         "detail": "main",
         "documentation": {}
     },
