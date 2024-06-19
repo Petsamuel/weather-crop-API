@@ -66,6 +66,7 @@ def get_weather(lat: float, lon: float):
         temp=data['main']['temp'],
         humidity=data['main']['humidity'],
         wind_speed=data['wind']['speed'],
+        main=data['weather'][0]['main'],
         description=data['weather'][0]['description']
     )
 
@@ -96,6 +97,7 @@ def get_weather(lat: float, lon: float):
         temp=data['main']['temp'],
         humidity=data['main']['humidity'],
         wind_speed=data['wind']['speed'],
+        main=data['weather'][0]['main'],
         description=data['weather'][0]['description']
     )
 
@@ -201,6 +203,7 @@ def get_weather_forecast(lat: float, lon: float):
         temp=data['main']['temp'],
         humidity=data['main']['humidity'],
         wind_speed=data['wind']['speed'],
+        main=data['weather'][0]['main'],
         description=data['weather'][0]['description']
     )
 
@@ -222,7 +225,7 @@ def get_weather_current(city: str):
 #     return {"status": "success", "current_data": current_data_, }    
 
 
-@app.get("/weather/history/{city}/{start_date}/{end_date}/")
+@app.get("/weather/history/{city}/{start_date}/{end_date}")
 def historical_weather_data(city: str, start_date: str, end_date: str):
     lat, lon = get_coordinates(city)
     historical_data = historical_weather(lat, lon, start_date, end_date)
