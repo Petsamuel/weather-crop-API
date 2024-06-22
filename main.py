@@ -62,6 +62,7 @@ def get_weather(lat: float, lon: float):
     if response.status_code != 200:
         raise HTTPException(status_code=404, detail="Weather data not found")
     data = response.json()
+    print (data)
     return WeatherData(
         temp=data['main']['temp'],
         humidity=data['main']['humidity'],
@@ -171,8 +172,7 @@ def get_weather_and_crop_recommendations(city: str):
     try:
         lat, lon = get_coordinates(city)
         weather_data = get_weather(lat, lon)
-        recommended_crops = recommend_crops(weather_data.dict(), crop_data)
-        return {"status": "success", "data": weather_data.dict(), "recommended_crops": recommended_crops}
+        return {"status": "success", "data": weather_data.dict()}
     except HTTPException as e:
         return {"status": "error", "detail": e.detail}
 
