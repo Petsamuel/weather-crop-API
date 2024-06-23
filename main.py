@@ -186,26 +186,20 @@ def get_weather_forecast(lat: float, lon: float):
         temp=data['main']['temp'],
         humidity=data['main']['humidity'],
         wind_speed=data['wind']['speed'],
-        description=data['weather'][0]['main'],
+        temp_min=data['main']['temp_min'],
+        temp_max=data['main']['temp_max'],
         main=data['weather'][0]['main'],
+        description=data['weather'][0]['main'],
     )
 
 
 @app.get("/current/weather/{city}", status_code=200)
-def get_weather_current(city: str):
+def get_current_weather(city: str):
     lat, lon = get_coordinates(city)
     current_data = current_weather(lat, lon)
 
     return {"status": "success", "data": current_data}
-
-
-
-# @app.get("/current/weather/forecast/{city}", status_code=200)
-# def get_weather_and_current_forecast(city: str):
-#     lat, lon = get_coordinates(city)
-#     current_data_ = current_weather_forecast(lat, lon)  
-#     return {"status": "success", "current_data": current_data_, }    
-
+ 
 
 @app.get("/weather/history/{city}/{start_date}/{end_date}")
 def historical_weather_data(city: str, start_date: str, end_date: str):
