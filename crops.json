@@ -452,22 +452,22 @@
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering."
     },
     {
-      "crops": "Water Leaf",
+      "crop": "Water Leaf",
       "suitability_score": 8.5,
       "growing_recomendation": ""
     },
     {
-      "crops": "Ewedu (Vegetable Soup)",
+      "crop": "Ewedu (Vegetable Soup)",
       "suitability_score": 8.5,
       "growing_recomendation": ""
     },
     {
-      "crops": "Scent Leaf",
+      "crop": "Scent Leaf",
       "suitability_score": 8.5,
       "growing_recomendation": ""
     },
     {
-      "crops": "Uziza (Piper Guineense)",
+      "crop": "Uziza (Piper Guineense)",
       "suitability_score": 8.5,
       "growing_recomendation": ""
     }

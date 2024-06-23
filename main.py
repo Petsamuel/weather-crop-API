@@ -28,8 +28,6 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-
-
 # importing all api keys from the.env file
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 WEATHER_API_URL = os.getenv("WEATHER_API_URL")
@@ -59,16 +57,18 @@ def get_weather(lat: float, lon: float):
         'units': 'metric'
     }
     response = requests.get(WEATHER_API_URL, params=params)
+    
     if response.status_code != 200:
         raise HTTPException(status_code=404, detail="Weather data not found")
     data = response.json()
-    print (data)
+    
     return WeatherData(
         temp=data['main']['temp'],
         humidity=data['main']['humidity'],
         wind_speed=data['wind']['speed'],
+        temp_min=data['main']['temp_min'],
         main=data['weather'][0]['main'],
-        description=data['weather'][0]['description']
+        description=data['weather'][0]['main'],
     )
 
 def get_coordinates(city: str):
@@ -83,24 +83,7 @@ def get_coordinates(city: str):
     data = response.json()[0]
     return data['lat'], data['lon']
 # Get weather data for given coordinates
-def get_weather(lat: float, lon: float):
-    params = {
-        'lat': lat,
-        'lon': lon,
-        'appid': WEATHER_API_KEY,
-        'units': 'metric'
-    }
-    response = requests.get(WEATHER_API_URL, params=params)
-    if response.status_code != 200:
-        raise HTTPException(status_code=404, detail="Weather data not found")
-    data = response.json()
-    return WeatherData(
-        temp=data['main']['temp'],
-        humidity=data['main']['humidity'],
-        wind_speed=data['wind']['speed'],
-        main=data['weather'][0]['main'],
-        description=data['weather'][0]['description']
-    )
+
 
 # Recommend crops based on weather data
 def recommend_crops(weather_data, crop_data):
@@ -152,7 +135,7 @@ def historical_weather(lat:float, lon:float, start_date: str, end_date: str):
 	"end_date": end_date,
 	"daily": ["temperature_2m_max", "temperature_2m_mean", "sunrise", "sunset", "daylight_duration", "sunshine_duration", "precipitation_sum", "rain_sum", "snowfall_sum", "precipitation_hours"],
 	"timezone": "Africa/Cairo"
-}
+ }
     responses = requests.get(WEATHER_API_KEY2, params=params)
     if responses.status_code != 200:
         raise HTTPException(status_code=404, detail="Weather data not found")
@@ -168,14 +151,14 @@ def read_root():
 
 # Get weather and recommendations for a city
 @app.get("/weather/{city}", status_code=200)
-def get_weather_and_crop_recommendations(city: str):
+def get_weather_only(city: str):
     try:
         lat, lon = get_coordinates(city)
         weather_data = get_weather(lat, lon)
         return {"status": "success", "data": weather_data.dict()}
     except HTTPException as e:
         return {"status": "error", "detail": e.detail}
-
+    
     
 # api for forecasting
 @app.get("/weather/forecast/{city}", status_code=200)
@@ -203,8 +186,8 @@ def get_weather_forecast(lat: float, lon: float):
         temp=data['main']['temp'],
         humidity=data['main']['humidity'],
         wind_speed=data['wind']['speed'],
+        description=data['weather'][0]['main'],
         main=data['weather'][0]['main'],
-        description=data['weather'][0]['description']
     )
 
 
@@ -213,7 +196,6 @@ def get_weather_current(city: str):
     lat, lon = get_coordinates(city)
     current_data = current_weather(lat, lon)
 
-    
     return {"status": "success", "data": current_data}
 
 
@@ -231,9 +213,6 @@ def historical_weather_data(city: str, start_date: str, end_date: str):
     historical_data = historical_weather(lat, lon, start_date, end_date)
     return {"status": "success", "data": historical_data}
     
-
-    
-
 
 if __name__ == "__main__":
     import uvicorn
