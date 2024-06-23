@@ -8,4 +8,8 @@ class WeatherData(BaseModel):
     temp: float
     humidity: int
     wind_speed: float
+    temp_min:float
+    temp_max:float
+    main:str
     description: str
+    

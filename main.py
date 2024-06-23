@@ -47,8 +47,6 @@ retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
 openmeteo = openmeteo_requests.Client(session = retry_session)
 
 
-# helper function 
-
 def get_weather(lat: float, lon: float):
     params = {
         'lat': lat,
@@ -67,8 +65,9 @@ def get_weather(lat: float, lon: float):
         humidity=data['main']['humidity'],
         wind_speed=data['wind']['speed'],
         temp_min=data['main']['temp_min'],
+        temp_max=data['main']['temp_max'],
         main=data['weather'][0]['main'],
-        description=data['weather'][0]['main'],
+        description=data['weather'][0]['description'],
     )
 
 def get_coordinates(city: str):
@@ -89,6 +88,7 @@ def get_coordinates(city: str):
 def recommend_crops(weather_data, crop_data):
     temp = weather_data['temp']
     humidity = weather_data['humidity']
+    main = weather_data['main']
     description = weather_data['description'].lower()
        
     if temp > 20 and humidity < 50:
