@@ -36,6 +36,7 @@ FORECAST_API_URL = os.getenv("FORECAST_API_URL")
 WEATHER_API_KEY2 = os.getenv("WEATHER_API_KEY2")
 WEATHER_HISTORICAL_API_URL = os.getenv("WEATHER_HISTORICAL_API_URL")
 CURRENT_AND_FORECAST_API_URL = os.getenv("CURRENT_AND_FORECAST_API_URL")
+CURRENT_IP_ADDRESS = os.getenv("CURRENT_IP_ADDRESS")
 # Load crop data from crops.json
 with open("crops.json", "r") as f:
     crop_data = json.load(f)
@@ -146,7 +147,14 @@ def historical_weather(lat:float, lon:float, start_date: str, end_date: str):
 # Root endpoint
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Weather Crop API"}
+    responses = requests.get(CURRENT_IP_ADDRESS)
+    if responses.status_code != 200:
+        raise HTTPException(status_code=404, details="failed to get ip address")
+    data = responses.json()
+    developer = "Samuel Peters"
+    # credit = "Kloudend"
+    return {"message": "Welcome to the Weather Crop API ", "ip": data, "developed":developer }
+
 
 
 # Get weather and recommendations for a city
