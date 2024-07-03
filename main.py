@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException
 import requests
 import os
 import json
-import openmeteo_requests
 import requests_cache
 from dotenv import load_dotenv
 from pydantic import BaseModel
@@ -42,11 +41,6 @@ with open("crops.json", "r") as f:
     crop_data = json.load(f)
 
 
-# Setup the Open-Meteo API client with cache and retry on error
-cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
-retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
-openmeteo = openmeteo_requests.Client(session = retry_session)
-
 
 def get_weather(lat: float, lon: float):
     params = {
@@ -83,7 +77,6 @@ def get_coordinates(city: str):
     data = response.json()[0]
     return data['lat'], data['lon']
 # Get weather data for given coordinates
-
 
 # Recommend crops based on weather data
 def recommend_crops(weather_data, crop_data):
@@ -147,14 +140,10 @@ def historical_weather(lat:float, lon:float, start_date: str, end_date: str):
 # Root endpoint
 @app.get("/")
 def read_root():
-    responses = requests.get(CURRENT_IP_ADDRESS)
-    if responses.status_code != 200:
-        raise HTTPException(status_code=404, details="failed to get ip address")
-    data = responses.json()
-    developer = "Samuel Peters"
-    # credit = "Kloudend"
-    return {"message": "Welcome to the Weather Crop API ", "ip": data, "developed":developer }
-
+    about="Api that recommends growable crops based on weather temperature for a given location and soil texture."
+    licenses = {'Full Name':"Samuel Peters", 'socials':{'github':"https://github.com/Petsamuel", "repository":"https://github.com/Petsamuel/weather-crop-API", "LinkedIn":"https:linkedIn.com/in/bieefilled"}, 'year':"2024"}
+    
+    return {"message": about, "License":licenses }
 
 
 # Get weather and recommendations for a city
