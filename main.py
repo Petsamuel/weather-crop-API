@@ -16,16 +16,18 @@ app = FastAPI()
 load_dotenv()
 origins = [
     "http://localhost:5173",  # Add your frontend's URL here
-    "https://weather-crop-api.vercel.app",
+    "https://weather-crop-api.vercel.app", 
+    "https://cropsdss-dhaviscos-projects.vercel.app/",
 ]
 #middleware app
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Allow specific origins
+    allow_origins= origins,  # Allow specific origins
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
 )
+
 
 # importing all api keys from the.env file
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
