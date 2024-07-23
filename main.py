@@ -16,7 +16,7 @@ app = FastAPI()
 load_dotenv()
 origins = [
     "http://localhost:5173",  # Add your frontend's URL here
-    "https://weather-crop-api.vercel.app"  
+    "https://weather-crop-api.vercel.app",
 ]
 #middleware app
 app.add_middleware(
