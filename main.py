@@ -10,7 +10,12 @@ from typing import List, Dict
 from retry_requests import retry
 import pandas as pd
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+from fastapi_cache.decorator import cache
+import joblib
+from sklearn.preprocessing import MinMaxScaler
+import numpy as np
 # Load environment variables from the .env file
 app = FastAPI()
 load_dotenv()

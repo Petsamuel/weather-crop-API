@@ -4,177 +4,206 @@
       "crop": "Corn (Maize)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soils with full sun exposure. Requires moderate watering.",
-      "relevant_information": " Thrives in hot, dry seasons (above 25°C). Needs well-drained, sandy loam soil. Plant at the beginning of the rainy season. Corn is a staple crop that grows well in high temperatures with low humidity. It requires a growing period of 90-120 days."
+      "relevant_information": "Thrives in hot, dry seasons (above 25°C). Needs well-drained, sandy loamy soil. Plant at the beginning of the rainy season. Corn is a staple crop that grows well in high temperatures with low humidity. It requires a growing period of 90-120 days.",
+      "favorable_soil_type": ["Sandy", " loamy"]
     },
     {
       "crop": "Sorghum",
       "suitability_score": 8.0,
       "growing_recommendation": "Sorghum thrives in hot, arid conditions. Plant in soil with good drainage and ensure regular watering.",
-      "relevant_information": "Sorghum is drought-tolerant and can be used for food, animal feed, and biofuels. It typically matures in 110-120 days."
+      "relevant_information": "Sorghum is drought-tolerant and can be used for food, animal feed, and biofuels. It typically matures in 110-120 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Millet",
       "suitability_score": 7.5,
       "growing_recommendation": "Millet is resilient to low temperatures. Plant in well-drained soil and water moderately.",
-      "relevant_information": "Millet is a hardy cereal crop that grows well in cooler climates and poor soils. It matures in about 60-90 days."
+      "relevant_information": "Millet is a hardy cereal crop that grows well in cooler climates and poor soils. It matures in about 60-90 days.",
+      "favorable_soil_type": ["sandy"]
     },
     {
       "crop": "Cowpeas",
       "suitability_score": 7.8,
       "growing_recommendation": "Plant in well-drained soil with moderate watering. Prefers full sun exposure.",
-      "relevant_information": "Cowpeas are versatile legumes that grow well in hot climates and improve soil fertility. They mature in 60-90 days."
+      "relevant_information": "Cowpeas are versatile legumes that grow well in hot climates and improve soil fertility. They mature in 60-90 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Groundnuts (Peanuts)",
       "suitability_score": 7.0,
       "growing_recommendation": "Groundnuts require loose, sandy soil and moderate temperatures. Ensure they receive plenty of sunlight and water.",
-      "relevant_information": "Groundnuts are a valuable source of protein and oil. They have a growing period of 90-130 days."
+      "relevant_information": "Groundnuts are a valuable source of protein and oil. They have a growing period of 90-130 days.",
+      "favorable_soil_type": ["sandy"]
     },
     {
       "crop": "Sesame",
       "suitability_score": 8.2,
       "growing_recommendation": "Plant in well-drained, fertile soil. Requires full sun and moderate watering.",
-      "relevant_information": "Sesame is drought-tolerant and produces seeds rich in oil. It matures in 90-110 days."
+      "relevant_information": "Sesame is drought-tolerant and produces seeds rich in oil. It matures in 90-110 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Melon (Watermelon, Cantaloupe)",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in warm, sunny locations with well-drained soil. Requires regular watering.",
-      "relevant_information": "Melons thrive in warm climates and produce sweet, refreshing fruits. They mature in 70-90 days."
+      "relevant_information": "Melons thrive in warm climates and produce sweet, refreshing fruits. They mature in 70-90 days.",
+      "favorable_soil_type": [" sandy", " loamy"]
     },
     {
       "crop": "Cotton",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires moderate watering.",
-      "relevant_information": "Cotton is a major fiber crop that grows well in hot, arid conditions. It matures in 150-180 days."
+      "relevant_information": "Cotton is a major fiber crop that grows well in hot, arid conditions. It matures in 150-180 days.",
+      "favorable_soil_type": [" loamy"]
     },
     {
       "crop": "Kenaf",
       "suitability_score": 7.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Kenaf is a fiber crop used for paper and textiles. It matures in 120-150 days."
+      "relevant_information": "Kenaf is a fiber crop used for paper and textiles. It matures in 120-150 days.",
+      "favorable_soil_type": [" loamy"]
     },
     {
       "crop": "Hibiscus",
       "suitability_score": 7.5,
       "growing_recommendation": "Plant in well-drained soil with full sun. Requires regular watering.",
-      "relevant_information": "Hibiscus is grown for its flowers and calyxes, used in beverages and foods. It matures in 150-180 days."
+      "relevant_information": "Hibiscus is grown for its flowers and calyxes, used in beverages and foods. It matures in 150-180 days.",
+      "favorable_soil_type": [" loamy"]
     },
     {
       "crop": "Gum Arabic",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in arid or semi-arid areas with well-drained soil. Requires minimal watering.",
-      "relevant_information": "Gum Arabic is harvested from Acacia trees and used as a stabilizer in food and beverages. Trees mature in 5-7 years."
+      "relevant_information": "Gum Arabic is harvested from Acacia trees and used as a stabilizer in food and beverages. Trees mature in 5-7 years.",
+      "favorable_soil_type": ["Arid"]
     },
     {
       "crop": "Bambara Groundnut",
       "suitability_score": 7.8,
       "growing_recommendation": "Plant in well-drained soil with moderate watering. Prefers full sun exposure.",
-      "relevant_information": "Bambara Groundnut is a resilient legume that improves soil fertility. It matures in 90-150 days."
+      "relevant_information": "Bambara Groundnut is a resilient legume that improves soil fertility. It matures in 90-150 days.",
+      "favorable_soil_type": ["loamy"]
     }
   ],
   "moderate_temp_high_humidity": [
     {
       "crop": "Rice",
       "suitability_score": 9.0,
-      "growing_recommendation": "Rice requires flooded or well irregated fields for optimal growth. Maintain consistent water levels and warm temperatures.",
-      "relevant_information": "Rice is a primary food source in many regions and grows well in areas with high humidity and moderate temperatures."
+      "growing_recommendation": "Rice requires flooded or well-irrigated fields for optimal growth. Maintain consistent water levels and warm temperatures.",
+      "relevant_information": "Rice is a primary food source in many regions and grows well in areas with high humidity and moderate temperatures.",
+      "favorable_soil_type": ["Clay", " loamy"]
     },
     {
       "crop": "Soybeans",
       "suitability_score": 8.5,
       "growing_recommendation": "Soybeans grow best in warm, moist conditions. Plant in well-drained soil and ensure adequate water supply.",
-      "relevant_information": "Soybeans are a versatile crop used for food, oil, and animal feed. They typically mature in 80-120 days."
+      "relevant_information": "Soybeans are a versatile crop used for food, oil, and animal feed. They typically mature in 80-120 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Cassava",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires minimal watering once established.",
-      "relevant_information": "Cassava is a root crop that grows well in tropical climates. It can be harvested 8-18 months after planting."
+      "relevant_information": "Cassava is a root crop that grows well in tropical climates. It can be harvested 8-18 months after planting.",
+      "favorable_soil_type": ["sandy", "loamy"]
     },
     {
       "crop": "Yams",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with moderate watering. Prefers full sun.",
-      "relevant_information": "Yams are a staple food in many tropical regions. They mature in 8-12 months."
+      "relevant_information": "Yams are a staple food in many tropical regions. They mature in 8-12 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Cocoyam",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in moist, well-drained soil with partial shade. Requires regular watering.",
-      "relevant_information": "Cocoyam is a root vegetable that thrives in humid conditions. It matures in 6-12 months."
+      "relevant_information": "Cocoyam is a root vegetable that thrives in humid conditions. It matures in 6-12 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Plantains",
       "suitability_score": 9.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Plantains are a staple food in many tropical regions. They can be harvested 9-12 months after planting."
+      "relevant_information": "Plantains are a staple food in many tropical regions. They can be harvested 9-12 months after planting.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Bananas",
       "suitability_score": 9.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Bananas are a popular fruit crop in tropical regions. They can be harvested 9-12 months after planting."
+      "relevant_information": "Bananas are a popular fruit crop in tropical regions. They can be harvested 9-12 months after planting.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Taro",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in moist, well-drained soil with partial shade. Requires regular watering.",
-      "relevant_information": "Taro is a root vegetable that thrives in humid conditions. It matures in 6-12 months."
+      "relevant_information": "Taro is a root vegetable that thrives in humid conditions. It matures in 6-12 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Bambara Groundnuts",
       "suitability_score": 7.8,
       "growing_recommendation": "Plant in well-drained soil with moderate watering. Prefers full sun exposure.",
-      "relevant_information": "Bambara Groundnut is a resilient legume that improves soil fertility. It matures in 90-150 days."
+      "relevant_information": "Bambara Groundnut is a resilient legume that improves soil fertility. It matures in 90-150 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Sweet Potatoes",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, sandy soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Sweet Potatoes are a versatile crop that grows well in warm climates. They mature in 90-120 days."
+      "relevant_information": "Sweet Potatoes are a versatile crop that grows well in warm climates. They mature in 90-120 days.",
+      "favorable_soil_type": ["sandy", "loamy"]
     },
     {
       "crop": "Cocoa",
       "suitability_score": 9.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Cocoa is used to produce chocolate and grows well in humid, tropical climates. Trees begin to produce pods after 3-5 years."
+      "relevant_information": "Cocoa is used to produce chocolate and grows well in humid, tropical climates. Trees begin to produce pods after 3-5 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Coffee",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Coffee is a popular beverage crop that grows well in tropical regions. Trees begin to produce berries after 3-4 years."
+      "relevant_information": "Coffee is a popular beverage crop that grows well in tropical regions. Trees begin to produce berries after 3-4 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Kolanut",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Kolanut is a stimulant crop that grows well in tropical climates. Trees begin to produce nuts after 5-7 years."
+      "relevant_information": "Kolanut is a stimulant crop that grows well in tropical climates. Trees begin to produce nuts after 5-7 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Ugwu (Fluted Pumpkin)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Ugwu is a leafy vegetable that grows well in tropical climates. It matures in 2-3 months."
+      "relevant_information": "Ugwu is a leafy vegetable that grows well in tropical climates. It matures in 2-3 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Egusi (Melon Seeds)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Egusi is grown for its edible seeds used in soups and stews. It matures in 5-6 months."
+      "relevant_information": "Egusi is grown for its edible seeds used in soups and stews. It matures in 5-6 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Bitter Kola",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Bitter Kola is a medicinal crop that grows well in tropical climates. Trees begin to produce nuts after 5-7 years."
+      "relevant_information": "Bitter Kola is a medicinal crop that grows well in tropical climates. Trees begin to produce nuts after 5-7 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Ogbono (Wild Mango)",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Ogbono is grown for its seeds used in cooking. Trees begin to produce fruits after 5-7 years."
+      "relevant_information": "Ogbono is grown for its seeds used in cooking. Trees begin to produce fruits after 5-7 years.",
+      "favorable_soil_type": ["loamy"]
     }
   ],
   "low_temp": [
@@ -182,49 +211,57 @@
       "crop": "Millet",
       "suitability_score": 7.5,
       "growing_recommendation": "Millet is resilient to low temperatures. Plant in well-drained soil and water moderately.",
-      "relevant_information": "Millet is a hardy cereal crop that grows well in cooler climates and poor soils. It matures in about 60-90 days."
+      "relevant_information": "Millet is a hardy cereal crop that grows well in cooler climates and poor soils. It matures in about 60-90 days.",
+      "favorable_soil_type": ["sandy"]
     },
     {
       "crop": "Groundnuts (Peanuts)",
       "suitability_score": 7.0,
       "growing_recommendation": "Groundnuts require loose, sandy soil and moderate temperatures. Ensure they receive plenty of sunlight and water.",
-      "relevant_information": "Groundnuts are a valuable source of protein and oil. They have a growing period of 90-130 days."
+      "relevant_information": "Groundnuts are a valuable source of protein and oil. They have a growing period of 90-130 days.",
+      "favorable_soil_type": ["sandy"]
     },
     {
       "crop": "Sweet Potatoes",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, sandy soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Sweet Potatoes are a versatile crop that grows well in warm climates. They mature in 90-120 days."
+      "relevant_information": "Sweet Potatoes are a versatile crop that grows well in warm climates. They mature in 90-120 days.",
+      "favorable_soil_type": ["sandy", "loamy"]
     },
     {
       "crop": "Irish Potatoes",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Irish Potatoes are a staple food that grows well in cooler climates. They mature in 90-120 days."
+      "relevant_information": "Irish Potatoes are a staple food that grows well in cooler climates. They mature in 90-120 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Peas",
       "suitability_score": 7.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires moderate watering.",
-      "relevant_information": "Peas are a cool-season crop that grows well in moderate climates. They mature in 60-70 days."
+      "relevant_information": "Peas are a cool-season crop that grows well in moderate climates. They mature in 60-70 days.",
+      "favorable_soil_type": [" loamy"]
     },
     {
       "crop": "Carrots",
       "suitability_score": 7.5,
       "growing_recommendation": "Plant in loose, sandy soil. Ensure the soil is well-drained and keep it consistently moist.",
-      "relevant_information": "Carrots are root vegetables that thrive in cooler climates. They typically mature in 70-80 days."
+      "relevant_information": "Carrots are root vegetables that thrive in cooler climates. They typically mature in 70-80 days.",
+      "favorable_soil_type": ["sandy"]
     },
     {
       "crop": "Spinach",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in cool, shaded areas. Requires regular watering and rich, well-drained soil.",
-      "relevant_information": "Spinach is a leafy green vegetable that grows quickly and prefers cooler temperatures. It matures in 45-55 days."
+      "relevant_information": "Spinach is a leafy green vegetable that grows quickly and prefers cooler temperatures. It matures in 45-55 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Amaranth",
       "suitability_score": 7.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Amaranth is a leafy vegetable that grows well in moderate climates. It matures in 30-60 days."
+      "relevant_information": "Amaranth is a leafy vegetable that grows well in moderate climates. It matures in 30-60 days.",
+      "favorable_soil_type": [" loamy"]
     }
   ],
   "rainy": [
@@ -232,151 +269,176 @@
       "crop": "Rice",
       "suitability_score": 9.0,
       "growing_recommendation": "Prefers flooded paddies or well-irrigated fields. Requires consistent moisture and warm temperatures. Plant at the beginning of the rainy season.",
-      "relevant_information": "Rice is a primary food source in many regions and grows well in areas with high humidity and moderate temperatures."
+      "relevant_information": "Rice is a primary food source in many regions and grows well in areas with high humidity and moderate temperatures.",
+      "favorable_soil_type": ["Clay", "loamy"]
     },
     {
       "crop": "Maize (Corn)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soils with full sun exposure. Requires moderate watering.",
-      "relevant_information": "Corn is a staple crop that grows well in high temperatures with low humidity. It requires a growing period of 90-120 days."
+      "relevant_information": "Corn is a staple crop that grows well in high temperatures with low humidity. It requires a growing period of 90-120 days.",
+      "favorable_soil_type": ["Sandy", "loamy"]
     },
     {
       "crop": "Sugarcane",
       "suitability_score": 9.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Sugarcane is a tropical crop used to produce sugar and ethanol. It matures in 10-18 months."
+      "relevant_information": "Sugarcane is a tropical crop used to produce sugar and ethanol. It matures in 10-18 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Melons (Watermelon, Cantaloupe)",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in warm, sunny locations with well-drained soil. Requires regular watering.",
-      "relevant_information": "Melons thrive in warm climates and produce sweet, refreshing fruits. They mature in 70-90 days."
+      "relevant_information": "Melons thrive in warm climates and produce sweet, refreshing fruits. They mature in 70-90 days.",
+      "favorable_soil_type": ["sandy", " loamy"]
     },
     {
       "crop": "Cocoa",
       "suitability_score": 9.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Cocoa is used to produce chocolate and grows well in humid, tropical climates. Trees begin to produce pods after 3-5 years."
+      "relevant_information": "Cocoa is used to produce chocolate and grows well in humid, tropical climates. Trees begin to produce pods after 3-5 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Rubber",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Rubber trees produce latex used to make rubber products. They mature in 5-7 years."
+      "relevant_information": "Rubber trees produce latex used to make rubber products. They mature in 5-7 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Oil Palm",
       "suitability_score": 9.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Oil Palm is used to produce palm oil and grows well in tropical climates. Trees begin to produce fruits after 3-4 years."
+      "relevant_information": "Oil Palm is used to produce palm oil and grows well in tropical climates. Trees begin to produce fruits after 3-4 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Coconut",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, sandy soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Coconut trees produce fruits used for food, oil, and fiber. They begin to produce coconuts after 6-10 years."
+      "relevant_information": "Coconut trees produce fruits used for food, oil, and fiber. They begin to produce coconuts after 6-10 years.",
+      "favorable_soil_type": ["sandy"]
     },
     {
       "crop": "Cashew",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires moderate watering.",
-      "relevant_information": "Cashew trees produce nuts and apples. They begin to produce fruits after 3-5 years."
+      "relevant_information": "Cashew trees produce nuts and apples. They begin to produce fruits after 3-5 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Pineapple",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, sandy soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Pineapples are a tropical fruit that grows well in warm climates. They mature in 18-24 months."
+      "relevant_information": "Pineapples are a tropical fruit that grows well in warm climates. They mature in 18-24 months.",
+      "favorable_soil_type": ["sandy"]
     },
     {
       "crop": "Citrus (Orange, Grapefruit, Lemon)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Citrus trees produce a variety of fruits that grow well in warm climates. Trees begin to produce fruits after 2-3 years."
+      "relevant_information": "Citrus trees produce a variety of fruits that grow well in warm climates. Trees begin to produce fruits after 2-3 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Mango",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Mango trees produce sweet fruits that grow well in tropical climates. Trees begin to produce fruits after 3-6 years."
+      "relevant_information": "Mango trees produce sweet fruits that grow well in tropical climates. Trees begin to produce fruits after 3-6 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Guava",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Guava trees produce fruits that grow well in tropical climates. Trees begin to produce fruits after 2-4 years."
+      "relevant_information": "Guava trees produce fruits that grow well in tropical climates. Trees begin to produce fruits after 2-4 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Pawpaw (Papaya)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Papaya trees produce fruits that grow well in tropical climates. Trees begin to produce fruits after 6-12 months."
+      "relevant_information": "Papaya trees produce fruits that grow well in tropical climates. Trees begin to produce fruits after 6-12 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Avocado",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Avocado trees produce fruits that grow well in tropical climates. Trees begin to produce fruits after 3-4 years."
+      "relevant_information": "Avocado trees produce fruits that grow well in tropical climates. Trees begin to produce fruits after 3-4 years.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Plantains",
       "suitability_score": 9.0,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Plantains are a staple food in many tropical regions. They can be harvested 9-12 months after planting."
+      "relevant_information": "Plantains are a staple food in many tropical regions. They can be harvested 9-12 months after planting.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Egusi (Melon Seeds)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Egusi is grown for its edible seeds used in soups and stews. It matures in 5-6 months."
+      "relevant_information": "Egusi is grown for its edible seeds used in soups and stews. It matures in 5-6 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Okra",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Okra is a popular vegetable that grows well in warm climates. It matures in 50-60 days."
+      "relevant_information": "Okra is a popular vegetable that grows well in warm climates. It matures in 50-60 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Bitter Leaf",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Bitter Leaf is used for its medicinal properties and as a leafy vegetable. It matures in 3-4 months."
+      "relevant_information": "Bitter Leaf is used for its medicinal properties and as a leafy vegetable. It matures in 3-4 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Ugu (Pumpkin)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Ugwu is a leafy vegetable that grows well in tropical climates. It matures in 2-3 months."
+      "relevant_information": "Ugwu is a leafy vegetable that grows well in tropical climates. It matures in 2-3 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Water Leaf",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Water Leaf is used as a leafy vegetable and grows well in warm, humid climates. It matures in 2-3 months."
+      "relevant_information": "Water Leaf is used as a leafy vegetable and grows well in warm, humid climates. It matures in 2-3 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Jute",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Jute is used for its fiber and grows well in tropical climates. It matures in 3-4 months."
+      "relevant_information": "Jute is used for its fiber and grows well in tropical climates. It matures in 3-4 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Fluted Pumpkin",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Fluted Pumpkin is used as a leafy vegetable and grows well in tropical climates. It matures in 2-3 months."
+      "relevant_information": "Fluted Pumpkin is used as a leafy vegetable and grows well in tropical climates. It matures in 2-3 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Efo Rogo (Bitter Leaf)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Bitter Leaf is used for its medicinal properties and as a leafy vegetable. It matures in 3-4 months."
+      "relevant_information": "Bitter Leaf is used for its medicinal properties and as a leafy vegetable. It matures in 3-4 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Ukazi (African Spinach)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "African Spinach is used as a leafy vegetable and grows well in warm, humid climates. It matures in 2-3 months."
+      "relevant_information": "African Spinach is used as a leafy vegetable and grows well in warm, humid climates. It matures in 2-3 months.",
+      "favorable_soil_type": ["loamy"]
     }
   ],
   "default": [
@@ -384,92 +446,108 @@
       "crop": "Lettuce",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in cool, shaded areas. Requires regular watering and rich, well-drained soil.",
-      "relevant_information": "Lettuce is a leafy green vegetable that grows quickly and prefers cooler temperatures. It matures in 45-55 days."
+      "relevant_information": "Lettuce is a leafy green vegetable that grows quickly and prefers cooler temperatures. It matures in 45-55 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Carrots",
       "suitability_score": 7.5,
       "growing_recommendation": "Plant in loose, sandy soil. Ensure the soil is well-drained and keep it consistently moist.",
-      "relevant_information": "Carrots are root vegetables that thrive in cooler climates. They typically mature in 70-80 days."
+      "relevant_information": "Carrots are root vegetables that thrive in cooler climates. They typically mature in 70-80 days.",
+      "favorable_soil_type": ["sandy"]
     },
     {
       "crop": "Cabbage",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in cool, shaded areas. Requires regular watering and rich, well-drained soil.",
-      "relevant_information": "Cabbage is a leafy green vegetable that grows best in cooler climates. It matures in 70-100 days."
+      "relevant_information": "Cabbage is a leafy green vegetable that grows best in cooler climates. It matures in 70-100 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Tomatoes",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Tomatoes are versatile vegetables that grow well in warm climates. They mature in 60-85 days."
+      "relevant_information": "Tomatoes are versatile vegetables that grow well in warm climates. They mature in 60-85 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Onions",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires moderate watering.",
-      "relevant_information": "Onions are a staple vegetable that grows well in various climates. They mature in 90-120 days."
+      "relevant_information": "Onions are a staple vegetable that grows well in various climates. They mature in 90-120 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Eggplant",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Eggplant is a warm-season vegetable that grows well in tropical climates. It matures in 70-85 days."
+      "relevant_information": "Eggplant is a warm-season vegetable that grows well in tropical climates. It matures in 70-85 days.",
+      "favorable_soil_type": [" loamy"]
     },
     {
       "crop": "Okra",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Okra is a popular vegetable that grows well in warm climates. It matures in 50-60 days."
+      "relevant_information": "Okra is a popular vegetable that grows well in warm climates. It matures in 50-60 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Green Beans",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Green Beans are a versatile vegetable that grows well in warm climates. They mature in 50-60 days."
+      "relevant_information": "Green Beans are a versatile vegetable that grows well in warm climates. They mature in 50-60 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Peppers (Bell peppers, Chili peppers)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Peppers are versatile vegetables that grow well in warm climates. They mature in 60-90 days."
+      "relevant_information": "Peppers are versatile vegetables that grow well in warm climates. They mature in 60-90 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Cucumber",
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
-      "relevant_information": "Cucumbers are a refreshing vegetable that grows well in warm climates. They mature in 50-70 days."
+      "relevant_information": "Cucumbers are a refreshing vegetable that grows well in warm climates. They mature in 50-70 days.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Bitter Leaf",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
-      "relevant_information": "Bitter Leaf is used for its medicinal properties and as a leafy vegetable. It matures in 3-4 months."
+      "relevant_information": "Bitter Leaf is used for its medicinal properties and as a leafy vegetable. It matures in 3-4 months.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Ugu (Pumpkin)",
       "suitability_score": 8.5,
-      "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering."
+      "growing_recommendation": "Plant in well-drained, fertile soil with full sun exposure. Requires regular watering.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Water Leaf",
       "suitability_score": 8.5,
-      "growing_recomendation": ""
+      "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Ewedu (Vegetable Soup)",
       "suitability_score": 8.5,
-      "growing_recomendation": ""
+      "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Scent Leaf",
       "suitability_score": 8.5,
-      "growing_recomendation": ""
+      "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Uziza (Piper Guineense)",
       "suitability_score": 8.5,
-      "growing_recomendation": ""
+      "growing_recommendation": "Plant in well-drained, fertile soil with partial shade. Requires regular watering.",
+      "favorable_soil_type": ["loamy"]
     }
   ]
 }
