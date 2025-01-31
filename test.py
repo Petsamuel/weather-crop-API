@@ -44,7 +44,7 @@ WEATHER_HISTORICAL_API_URL = os.getenv("WEATHER_HISTORICAL_API_URL")
 CURRENT_AND_FORECAST_API_URL = os.getenv("CURRENT_AND_FORECAST_API_URL")
 CURRENT_IP_ADDRESS = os.getenv("CURRENT_IP_ADDRESS")
 
-print(USERNAME, PASSWORD)
+
 # Load crop data from crops.json
 with open("crops.json", "r") as f:
     crop_data = json.load(f)
@@ -164,7 +164,7 @@ def get_weather_only(city: str):
 
 # api for forecasting
 @app.get("/weather/forecast/{city}", status_code=200)
-def get_weather_forecast_and_crop_recommendations(city: str, user: str = Depends(authenticate)):
+def get_weather_forecast_and_crop_recommendations(city: str):
     try:
         lat, lon = get_coordinates(city)
         weather_data = get_weather_forecast(lat, lon)
@@ -209,7 +209,7 @@ def historical_weather_data(city: str, start_date: str, end_date: str):
 
 # New endpoint to recommend crops using the trained model
 @app.get("/recommend-crops/{city}", status_code=200)
-def recommend_crops_using_model(city: str, user: str = Depends(authenticate)):
+def recommend_crops_using_model(city: str):
     try:
         lat, lon = get_coordinates(city)
         weather_data = get_weather(lat, lon)
