@@ -5,7 +5,7 @@
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soils with full sun exposure. Requires moderate watering.",
       "relevant_information": "Thrives in hot, dry seasons (above 25°C). Needs well-drained, sandy loamy soil. Plant at the beginning of the rainy season. Corn is a staple crop that grows well in high temperatures with low humidity. It requires a growing period of 90-120 days.",
-      "favorable_soil_type": ["Sandy", " loamy"]
+      "favorable_soil_type": ["Sandy loamy"]
     },
     {
       "crop": "Sorghum",
@@ -47,7 +47,7 @@
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in warm, sunny locations with well-drained soil. Requires regular watering.",
       "relevant_information": "Melons thrive in warm climates and produce sweet, refreshing fruits. They mature in 70-90 days.",
-      "favorable_soil_type": [" sandy", " loamy"]
+      "favorable_soil_type": ["sandy loamy"]
     },
     {
       "crop": "Cotton",
@@ -61,14 +61,14 @@
       "suitability_score": 7.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires regular watering.",
       "relevant_information": "Kenaf is a fiber crop used for paper and textiles. It matures in 120-150 days.",
-      "favorable_soil_type": [" loamy"]
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Hibiscus",
       "suitability_score": 7.5,
       "growing_recommendation": "Plant in well-drained soil with full sun. Requires regular watering.",
       "relevant_information": "Hibiscus is grown for its flowers and calyxes, used in beverages and foods. It matures in 150-180 days.",
-      "favorable_soil_type": [" loamy"]
+      "favorable_soil_type": ["loamy"]
     },
     {
       "crop": "Gum Arabic",
@@ -91,7 +91,7 @@
       "suitability_score": 9.0,
       "growing_recommendation": "Rice requires flooded or well-irrigated fields for optimal growth. Maintain consistent water levels and warm temperatures.",
       "relevant_information": "Rice is a primary food source in many regions and grows well in areas with high humidity and moderate temperatures.",
-      "favorable_soil_type": ["Clay", " loamy"]
+      "favorable_soil_type": ["Clay  loamy"]
     },
     {
       "crop": "Soybeans",
@@ -105,7 +105,7 @@
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soil with full sun exposure. Requires minimal watering once established.",
       "relevant_information": "Cassava is a root crop that grows well in tropical climates. It can be harvested 8-18 months after planting.",
-      "favorable_soil_type": ["sandy", "loamy"]
+      "favorable_soil_type": ["sandy loamy"]
     },
     {
       "crop": "Yams",
@@ -154,7 +154,7 @@
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, sandy soil with full sun exposure. Requires regular watering.",
       "relevant_information": "Sweet Potatoes are a versatile crop that grows well in warm climates. They mature in 90-120 days.",
-      "favorable_soil_type": ["sandy", "loamy"]
+      "favorable_soil_type": ["sandy loamy"]
     },
     {
       "crop": "Cocoa",
@@ -226,7 +226,7 @@
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained, sandy soil with full sun exposure. Requires regular watering.",
       "relevant_information": "Sweet Potatoes are a versatile crop that grows well in warm climates. They mature in 90-120 days.",
-      "favorable_soil_type": ["sandy", "loamy"]
+      "favorable_soil_type": ["sandy loamy"]
     },
     {
       "crop": "Irish Potatoes",
@@ -270,14 +270,14 @@
       "suitability_score": 9.0,
       "growing_recommendation": "Prefers flooded paddies or well-irrigated fields. Requires consistent moisture and warm temperatures. Plant at the beginning of the rainy season.",
       "relevant_information": "Rice is a primary food source in many regions and grows well in areas with high humidity and moderate temperatures.",
-      "favorable_soil_type": ["Clay", "loamy"]
+      "favorable_soil_type": ["Clay loamy"]
     },
     {
       "crop": "Maize (Corn)",
       "suitability_score": 8.5,
       "growing_recommendation": "Plant in well-drained soils with full sun exposure. Requires moderate watering.",
       "relevant_information": "Corn is a staple crop that grows well in high temperatures with low humidity. It requires a growing period of 90-120 days.",
-      "favorable_soil_type": ["Sandy", "loamy"]
+      "favorable_soil_type": ["Sandy loamy"]
     },
     {
       "crop": "Sugarcane",
@@ -291,7 +291,7 @@
       "suitability_score": 8.0,
       "growing_recommendation": "Plant in warm, sunny locations with well-drained soil. Requires regular watering.",
       "relevant_information": "Melons thrive in warm climates and produce sweet, refreshing fruits. They mature in 70-90 days.",
-      "favorable_soil_type": ["sandy", " loamy"]
+      "favorable_soil_type": ["sandy loamy"]
     },
     {
       "crop": "Cocoa",

@@ -227,7 +227,7 @@ def recommend_crops_using_model(city: str):
         
         # Make predictions using the trained model
         predictions = model.predict(input_data)
-        
+        print(input_data)
         # Return the predictions
         return {"status": "success", "recommended_crops": predictions.tolist()}
     except HTTPException as e:
