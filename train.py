@@ -1,40 +1,145 @@
-import json
 import pandas as pd
-from sklearn.preprocessing import MultiLabelBinarizer
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import joblib
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, classification_report
+import matplotlib.pyplot as plt
+import seaborn as sns
+import logging
 
-# Load JSON data from the file
-with open("crops.json", "r", encoding="utf-8") as file:
-    data = json.load(file)  # Load JSON into a Python dictionary
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Initialize an empty list to store crop data
-crop_data = []
+# Define crop dictionary at module level
+CROP_DICT = {
+    'rice': 1, 'maize': 2, 'chickpea': 3, 'kidneybeans': 4,
+    'pigeonpeas': 5, 'mothbeans': 6, 'mungbean': 7, 'blackgram': 8,
+    'lentil': 9, 'pomegranate': 10, 'banana': 11, 'mango': 12,
+    'grapes': 13, 'watermelon': 14, 'muskmelon': 15, 'apple': 16,
+    'orange': 17, 'papaya': 18, 'coconut': 19, 'cotton': 20,
+    'jute': 21, 'coffee': 22
+}
 
-# Iterate through different climate categories and extract crops
-for key in ["high_temp_low_humidity", "moderate_temp_high_humidity", "low_temp", "rainy", "default"]:
-    if key in data:  # Check if the key exists in JSON
-        crop_data.extend(data[key])  # Append crop data to the list
+def load_and_preprocess_data():
+    try:
+        data = pd.read_csv('crop_recommendation.csv')
+        data['label'] = data['label'].map(CROP_DICT)
+        X = data.drop('label', axis=1)
+        y = data['label']
+        return X, y
+    except Exception as e:
+        logging.error(f"Error loading or preprocessing data: {e}")
+        raise
 
-# Convert extracted data into a Pandas DataFrame
-df = pd.DataFrame(crop_data)
+def train_and_evaluate(test_size=0.2, random_state=42):
+    # Load and scale data
+    X, y = load_and_preprocess_data()
+    scaler = MinMaxScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_scaled, y, test_size=test_size, random_state=random_state
+    )
+    
+    # Train model
+    model = RandomForestClassifier(n_estimators=100, random_state=random_state)
+    model.fit(X_train, y_train)
+    
+    # Evaluate
+    y_pred = model.predict(X_test)
+    cv_scores = cross_val_score(model, X_scaled, y, cv=5)
+    conf_matrix = confusion_matrix(y_test, y_pred)
+    
+    # Plot confusion matrix
+    plt.figure(figsize=(12, 8))
+    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', 
+                xticklabels=CROP_DICT.keys(), yticklabels=CROP_DICT.keys())
+    plt.title('Confusion Matrix')
+    plt.savefig('confusion_matrix.png')
+    
+    # Save model artifacts
+    joblib.dump(model, 'crop_recommendation_model.pkl')
+    joblib.dump(scaler, 'scaler.pkl')
+    
+    return model, cv_scores, classification_report(y_test, y_pred), model.feature_importances_
 
-# Ensure the 'favorable_soil_type' column exists in the dataset
-if "favorable_soil_type" in df.columns:
-    # Convert soil type values into lists if they are not already
-    df["favorable_soil_type"] = df["favorable_soil_type"].apply(lambda x: x if isinstance(x, list) else [x])
+def evaluate_classifiers(X_train, X_test, y_train, y_test):
+    # Define classifiers
+    classifiers = {
+        'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42),
+        'SVM': SVC(random_state=42),
+        'KNN': KNeighborsClassifier(n_neighbors=5),
+        'Decision Tree': DecisionTreeClassifier(random_state=42),
+        'Naive Bayes': GaussianNB()
+    }
+    
+    # Evaluate each classifier
+    results = {}
+    for name, clf in classifiers.items():
+        # Train and predict
+        clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
+        
+        # Store results
+        results[name] = {
+            'accuracy': accuracy_score(y_test, y_pred),
+            'cv_scores': cross_val_score(clf, X_train, y_train, cv=5),
+            'report': classification_report(y_test, y_pred),
+            'model': clf
+        }
+        
+    return results
 
-    # Use MultiLabelBinarizer to perform one-hot encoding on soil types
-    mlb = MultiLabelBinarizer()
-    encoded_soil = pd.DataFrame(mlb.fit_transform(df["favorable_soil_type"]), columns=mlb.classes_)
+def plot_classifier_comparison(results):
+    accuracies = [v['accuracy'] for v in results.values()]
+    names = list(results.keys())
+    
+    plt.figure(figsize=(10, 6))
+    plt.bar(names, accuracies)
+    plt.title('Classifier Comparison')
+    plt.xticks(rotation=45)
+    plt.ylabel('Accuracy')
+    plt.tight_layout()
+    plt.savefig('classifier_comparison.png')
 
-    # Merge the encoded data back into the DataFrame and remove the original column
-    df = df.drop(columns=["favorable_soil_type"]).join(encoded_soil)
+def train_and_evaluate(test_size=0.2, random_state=42):
+    # Load and scale data
+    X, y = load_and_preprocess_data()
+    scaler = MinMaxScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    # Split data
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_scaled, y, test_size=test_size, random_state=random_state
+    )
+    
+    # Evaluate classifiers
+    results = evaluate_classifiers(X_train, X_test, y_train, y_test)
+    
+    # Plot results
+    plot_classifier_comparison(results)
+    
+    # Get best model
+    best_clf = max(results.items(), key=lambda x: x[1]['accuracy'])
+    
+    # Save best model
+    joblib.dump(best_clf[1]['model'], 'best_crop_model.pkl')
+    joblib.dump(scaler, 'scaler.pkl')
+    
+    return results
 
-# Save the processed DataFrame as a pickle file for future use
-joblib.dump(df, "crop_data.pkl")
-
-# Save the processed DataFrame as a CSV file for easy inspection
-df.to_csv("processed_crops.csv", index=False)
-
-# Display the first few rows of the processed DataFrame
-print(df.head())
+if __name__ == "__main__":
+    results = train_and_evaluate()
+    for name, metrics in results.items():
+        print(f"\n{name} Results:")
+        print(f"Accuracy: {metrics['accuracy']:.3f}")
+        print(f"CV Scores: {metrics['cv_scores'].mean():.3f} (+/- {metrics['cv_scores'].std() * 2:.3f})")
+        print(f"Classification Report:\n{metrics['report']}")

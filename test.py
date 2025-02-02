@@ -15,8 +15,8 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
 from datetime import timedelta
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 import joblib
-from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 
 # Load environment variables from the .env file
@@ -44,13 +44,16 @@ WEATHER_HISTORICAL_API_URL = os.getenv("WEATHER_HISTORICAL_API_URL")
 CURRENT_AND_FORECAST_API_URL = os.getenv("CURRENT_AND_FORECAST_API_URL")
 CURRENT_IP_ADDRESS = os.getenv("CURRENT_IP_ADDRESS")
 
-print(USERNAME, PASSWORD)
+
 # Load crop data from crops.json
 with open("crops.json", "r") as f:
     crop_data = json.load(f)
 
-# Load the trained model and preprocessed data
-model = joblib.load("crop_data.pkl")
+# Load model artifacts
+model = joblib.load('crop_recommendation_model.pkl')
+scaler = joblib.load('scaler.pkl')
+label_encoder = joblib.load('label_encoder.pkl')
+features = joblib.load('feature_names.pkl')
 
 
 def get_weather(lat: float, lon: float):
@@ -164,7 +167,7 @@ def get_weather_only(city: str):
 
 # api for forecasting
 @app.get("/weather/forecast/{city}", status_code=200)
-def get_weather_forecast_and_crop_recommendations(city: str, user: str = Depends(authenticate)):
+def get_weather_forecast_and_crop_recommendations(city: str):
     try:
         lat, lon = get_coordinates(city)
         weather_data = get_weather_forecast(lat, lon)
@@ -209,29 +212,62 @@ def historical_weather_data(city: str, start_date: str, end_date: str):
 
 # New endpoint to recommend crops using the trained model
 @app.get("/recommend-crops/{city}", status_code=200)
-def recommend_crops_using_model(city: str, user: str = Depends(authenticate)):
+def recommend_crops_using_model(city: str):
     try:
+        # Get weather data
         lat, lon = get_coordinates(city)
         weather_data = get_weather(lat, lon)
         
-        # Preprocess the weather data to match the model's input format
+        # Prepare features
         input_data = pd.DataFrame([{
-            'temp': weather_data.temp,
-            'humidity': weather_data.humidity,
-            'wind_speed': weather_data.wind_speed,
-            'temp_min': weather_data.temp_min,
-            'temp_max': weather_data.temp_max,
-            'main': weather_data.main,
-            'description': weather_data.description
+            'temp_range': (weather_data.temp_max - weather_data.temp_min),
+            'humidity_range': weather_data.humidity,
+            'suitability_score': min(100, max(0, 
+                (weather_data.temp - 15) * 5 + 
+                (weather_data.humidity - 40) * 2))
         }])
         
-        # Make predictions using the trained model
-        predictions = model.predict(input_data)
+        # Scale features
+        input_scaled = scaler.transform(input_data[features])
         
-        # Return the predictions
-        return {"status": "success", "recommended_crops": predictions.tolist()}
-    except HTTPException as e:
-        return {"status": "error", "detail": e.detail}
+        # Get predictions
+        prediction = model.predict(input_scaled)
+        crop_conditions = label_encoder.inverse_transform(prediction)
+        
+        # Get recommended crops
+        recommended_crops = crop_data.get(crop_conditions[0], [])
+        
+        return {
+            "status": "success",
+            "weather_condition": crop_conditions[0],
+            "recommended_crops": recommended_crops
+        }
+        
+    except Exception as e:
+        return {"status": "error", "detail": str(e)}
+# def recommend_crops_using_model(city: str):
+#     try:
+#         lat, lon = get_coordinates(city)
+#         weather_data = get_weather(lat, lon)
+        
+#         # Preprocess the weather data to match the model's input format
+#         input_data = pd.DataFrame([{
+#             'temp': weather_data.temp,
+#             'humidity': weather_data.humidity,
+#             'wind_speed': weather_data.wind_speed,
+#             'temp_min': weather_data.temp_min,
+#             'temp_max': weather_data.temp_max,
+#             'main': weather_data.main,
+#             'description': weather_data.description
+#         }])
+        
+#         # Make predictions using the trained model
+#         predictions = model.predict(input_data)
+#         print(input_data)
+#         # Return the predictions
+#         return {"status": "success", "recommended_crops": predictions.tolist()}
+#     except HTTPException as e:
+#         return {"status": "error", "detail": e.detail}
 
 
 
