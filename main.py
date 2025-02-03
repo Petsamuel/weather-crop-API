@@ -11,7 +11,6 @@ from retry_requests import retry
 import pandas as pd
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_cache import FastAPICache
-from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache.decorator import cache
 import joblib
 from sklearn.preprocessing import MinMaxScaler
@@ -193,7 +192,6 @@ def get_weather_forecast(lat: float, lon: float):
         description=data['weather'][0]['main'],
     )
 
-
 @app.get("/current/weather/{city}", status_code=200)
 def get_current_weather(city: str):
     lat, lon = get_coordinates(city)
@@ -202,12 +200,26 @@ def get_current_weather(city: str):
     return {"status": "success", "data": current_data}
  
 
-@app.get("/weather/history/{city}/{start_date}/{end_date}")
+@app.get("/weather/history/{city}/{start_date}/{end_date}", status_code=200, summary="start_date and end_date: 2022-01-01, 2022-01-31")
 def historical_weather_data(city: str, start_date: str, end_date: str):
+    #examples of start_date and end_date: 2022-01-01, 2022-01-31
     lat, lon = get_coordinates(city)
     historical_data = historical_weather(lat, lon, start_date, end_date)
     return {"status": "success", "data": historical_data}
     
+
+#health
+@app.get("/health", status_code=200, summary="Check the health of the API")
+def health():
+    # Returns a message describing the status of this service
+    return {
+        status:"success",
+        message:"The service is running",
+        timestamp: timestamp(datetime.now()),
+        response_time: 0.1,
+        version: "0.0.1"
+    }
+
 
 if __name__ == "__main__":
     import uvicorn

@@ -136,10 +136,48 @@ def train_and_evaluate(test_size=0.2, random_state=42):
     
     return results
 
+def test_crop_prediction(temperature, humidity, rainfall, N, P, K, ph):
+    # Load model and scaler
+    model = joblib.load('best_crop_model.pkl')
+    scaler = joblib.load('scaler.pkl')
+    
+    input_data = pd.DataFrame([{
+        'N': N,
+        'P': P,
+        'K': K,
+        'temperature': temperature,
+        'humidity': humidity,
+        'ph': ph,
+        'rainfall': rainfall
+    }])
+    
+    input_scaled = scaler.transform(input_data)
+    prediction = model.predict(input_scaled)[0]
+    crop_dict = {
+        1: 'rice', 2: 'maize', 3: 'chickpea', 4: 'kidneybeans',
+        5: 'pigeonpeas', 6: 'mothbeans', 7: 'mungbean', 8: 'blackgram',
+        9: 'lentil', 10: 'pomegranate', 11: 'banana', 12: 'mango',
+        13: 'grapes', 14: 'watermelon', 15: 'muskmelon', 16: 'apple',
+        17: 'orange', 18: 'papaya', 19: 'coconut', 20: 'cotton',
+        21: 'jute', 22: 'coffee'
+    }
+    
+    return {"prdiction=>":crop_dict[prediction]}
+
 if __name__ == "__main__":
     results = train_and_evaluate()
-    for name, metrics in results.items():
-        print(f"\n{name} Results:")
-        print(f"Accuracy: {metrics['accuracy']:.3f}")
-        print(f"CV Scores: {metrics['cv_scores'].mean():.3f} (+/- {metrics['cv_scores'].std() * 2:.3f})")
-        print(f"Classification Report:\n{metrics['report']}")
+    temperature = 25.0
+    humidity = 71.0
+    rainfall = 103.0
+    N = 90
+    P = 42
+    K = 43
+    ph = 6.5
+    crop = test_crop_prediction(temperature, humidity, rainfall, N, P, K, ph)
+    print(crop)
+    # for name, metrics in results.items():
+    #     print(f"\n{name} Results:")
+    #     print(f"Accuracy: {metrics['accuracy']:.3f}")
+    #     print(f"CV Scores: {metrics['cv_scores'].mean():.3f} (+/- {metrics['cv_scores'].std() * 2:.3f})")
+    #     print(f"Classification Report:\n{metrics['report']}")
+        

@@ -197,7 +197,47 @@ def get_weather_forecast(lat: float, lon: float):
         description=data['weather'][0]['description']
 
     )
+# Load model artifacts
+model = joblib.load('best_crop_model.pkl')
+scaler = joblib.load('scaler.pkl')
 
+@app.get("/recommend-crops/{city}", status_code=200)
+def recommend_crops_using_model(city: str):
+    try:
+        # Get weather data
+        lat, lon = get_coordinates(city)
+        weather_data = get_weather(lat, lon)
+        
+        # Prepare features
+        input_data = pd.DataFrame([{
+            'N': 50,  # Default values - adjust as needed
+            'P': 50,
+            'K': 50,
+            'temperature': weather_data.temp,
+            'humidity': weather_data.humidity,
+            'ph': 7.0,  # Default value
+            'rainfall': 200  # Default value
+        }])
+        
+        # Scale features
+        input_scaled = scaler.transform(input_data)
+        
+        # Get predictions
+        prediction = model.predict(input_scaled)[0]
+        
+        # Map prediction back to crop name
+        crop_dict_reverse = {v: k for k, v in CROP_DICT.items()}
+        recommended_crop = crop_dict_reverse[prediction]
+        
+        return {
+            "status": "success",
+            "weather_data": weather_data.dict(),
+            "recommended_crop": recommended_crop
+        }
+        
+    except Exception as e:
+        return {"status": "error", "detail": str(e)}
+    
 @app.get("/current/weather/{city}", status_code=200)
 def get_current_weather(city: str):
     lat, lon = get_coordinates(city)
