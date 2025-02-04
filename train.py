@@ -9,7 +9,6 @@ from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score, classification_report
 import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
@@ -38,38 +37,38 @@ def load_and_preprocess_data():
         logging.error(f"Error loading or preprocessing data: {e}")
         raise
 
-def train_and_evaluate(test_size=0.2, random_state=42):
-    # Load and scale data
-    X, y = load_and_preprocess_data()
-    scaler = MinMaxScaler()
-    X_scaled = scaler.fit_transform(X)
+# def train_and_evaluate(test_size=0.2, random_state=42):
+#     # Load and scale data
+#     X, y = load_and_preprocess_data()
+#     scaler = MinMaxScaler()
+#     X_scaled = scaler.fit_transform(X)
     
-    # Split data
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_scaled, y, test_size=test_size, random_state=random_state
-    )
+#     # Split data
+#     X_train, X_test, y_train, y_test = train_test_split(
+#         X_scaled, y, test_size=test_size, random_state=random_state
+#     )
     
-    # Train model
-    model = RandomForestClassifier(n_estimators=100, random_state=random_state)
-    model.fit(X_train, y_train)
+#     # Train model
+#     model = RandomForestClassifier(n_estimators=100, random_state=random_state)
+#     model.fit(X_train, y_train)
     
-    # Evaluate
-    y_pred = model.predict(X_test)
-    cv_scores = cross_val_score(model, X_scaled, y, cv=5)
-    conf_matrix = confusion_matrix(y_test, y_pred)
+#     # Evaluate
+#     y_pred = model.predict(X_test)
+#     cv_scores = cross_val_score(model, X_scaled, y, cv=5)
+#     conf_matrix = confusion_matrix(y_test, y_pred)
     
-    # Plot confusion matrix
-    plt.figure(figsize=(12, 8))
-    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', 
-                xticklabels=CROP_DICT.keys(), yticklabels=CROP_DICT.keys())
-    plt.title('Confusion Matrix')
-    plt.savefig('confusion_matrix.png')
+#     # Plot confusion matrix
+#     plt.figure(figsize=(12, 8))
+#     sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', 
+#                 xticklabels=CROP_DICT.keys(), yticklabels=CROP_DICT.keys())
+#     plt.title('Confusion Matrix')
+#     plt.savefig('confusion_matrix.png')
     
-    # Save model artifacts
-    joblib.dump(model, 'crop_recommendation_model.pkl')
-    joblib.dump(scaler, 'scaler.pkl')
+#     # Save model artifacts
+#     joblib.dump(model, 'crop_recommendation_model.pkl')
+#     joblib.dump(scaler, 'scaler.pkl')
     
-    return model, cv_scores, classification_report(y_test, y_pred), model.feature_importances_
+#     return model, cv_scores, classification_report(y_test, y_pred), model.feature_importances_
 
 def evaluate_classifiers(X_train, X_test, y_train, y_test):
     # Define classifiers

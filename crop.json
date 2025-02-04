@@ -1,0 +1,132 @@
+{
+  "Sahel Savannah": {
+    "Soil": "Sandy Soil",
+    "Fertility": "Low",
+    "Rainfall": "Low",
+    "States": ["Borno", "Yobe", "Jigawa", "Katsina", "Sokoto"],
+    "Crops": [
+      "Millet",
+      "Sorghum",
+      "Groundnut",
+      "Cowpea",
+      "Sesame",
+      "Date Palm"
+    ],
+    "N": 35,
+    "P": 20,
+    "K": 30,
+    "pH": 7.5,
+    "Note": "Slightly alkaline conditions typical of arid regions "
+  },
+  "Sudan Savannah": {
+    "Soil": "Sandy-Loam",
+    "Fertility": "Moderate",
+    "Rainfall": "Low to Moderate",
+    "States": ["Kano", "Kebbi", "Zamfara", "Bauchi", "Gombe"],
+    "Crops": ["Sorghum", "Maize", "Millet", "Cotton", "Groundnut", "Cowpea"],
+    "N": 45,
+    "P": 30,
+    "K": 45,
+    "pH": 6.5,
+    "Note": "Neutral to slightly acidic, ideal for many crops "
+  },
+  "Guinea Savannah": {
+    "Soil": "Loamy-Clay",
+    "Fertility": "High",
+    "Rainfall": "Moderate",
+    "States": [
+      "Kwara",
+      "Kogi",
+      "Niger",
+      "Benue",
+      "Taraba",
+      "Nasarawa",
+      "Plateau",
+      "FCT"
+    ],
+    "Crops": [
+      "Maize",
+      "Rice",
+      "Yam",
+      "Cassava",
+      "Soybean",
+      "Guinea Corn",
+      "Mango",
+      "Cashew"
+    ],
+    "N": 55,
+    "P": 40,
+    "K": 60,
+    "pH": 6.0,
+    "Note": "Slightly acidic to neutral pH ."
+  },
+  "Derived Savannah": {
+    "Soil": "Loamy-Clay",
+    "Fertility": "Humus-Rich",
+    "Rainfall": "Moderate to High",
+    "States": [
+      "Ekiti",
+      "Osun",
+      "Oyo",
+      "Ogun",
+      "Edo",
+      "Delta",
+      "Anambra",
+      "Enugu",
+      "Ebonyi"
+    ],
+    "Crops": [
+      "Cocoa",
+      "Oil Palm",
+      "Cassava",
+      "Yam",
+      "Maize",
+      "Cashew",
+      "Plantain",
+      "Citrus"
+    ],
+    "N": 60,
+    "P": 45,
+    "K": 70,
+    "pH": 5.5,
+    "Note": "Higher organic matter content leads to more acidic soils "
+  },
+  "Tropical Rainforest": {
+    "Soil": "Humus-Rich Loam",
+    "Fertility": "High",
+    "Rainfall": "High",
+    "States": [
+      "Cross River",
+      "Akwa Ibom",
+      "Ondo",
+      "Bayelsa",
+      "Rivers",
+      "Lagos"
+    ],
+    "Crops": [
+      "Cocoa",
+      "Rubber",
+      "Oil Palm",
+      "Banana",
+      "Pineapple",
+      "Cassava",
+      "Rice"
+    ],
+    "N": 70,
+    "P": 50,
+    "K": 80,
+    "pH": 4.5,
+    "Note": "Highly acidic soils typical of rainforests "
+  },
+  "Mangrove Swamps": {
+    "Soil": "Peaty-Clay",
+    "Fertility": "Waterlogged, Acidic",
+    "States": ["Delta", "Bayelsa", "Rivers", "Cross River", "Lagos"],
+    "Crops": ["Rice", "Sugarcane", "Coconut", "Oil Palm", "Water Yam"],
+    "N": 50,
+    "P": 35,
+    "K": 65,
+    "pH": 4.0,
+    "Note": "Acidic conditions due to waterlogging and peaty nature "
+  }
+}
