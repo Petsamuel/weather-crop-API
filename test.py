@@ -73,9 +73,6 @@ def get_soil_properties_by_location(state: str):
         logging.error(f"Error getting soil properties for {state}: {e}")
         return None
 
-
-
-
 def get_weather(lat: float, lon: float):
     params = {
         'lat': lat,
@@ -111,8 +108,8 @@ def get_coordinates(city: str):
     if response.status_code != 200 or len(response.json()) == 0:
         raise HTTPException(status_code=404, detail="City not found or not in Nigeria")
     data = response.json()[0]
-    state = extract_state_from_response(data)
-    print(state)
+    state = extract_state_from_response(data['state'])
+    
     return data['lat'], data['lon'], state
 # Get weather data for given coordinates
 
@@ -196,7 +193,43 @@ def historical_weather(lat:float, lon:float, start_date: str, end_date: str):
         raise HTTPException(status_code=404, detail="Weather data not found")
     data = responses.json()
     return data
-   
+
+def predict_crop(city: str, state: str, weather_data: dict, soil_props: dict):
+    """Predict crop based on weather and soil data"""
+    try:
+        # Load model artifacts
+        model = joblib.load('best_crop_model.pkl')
+        scaler = joblib.load('scaler.pkl')
+        
+        # Prepare input data
+        input_data = pd.DataFrame([{
+            'N': soil_props['N'],
+            'P': soil_props['P'],
+            'K': soil_props['K'],
+            'temperature': weather_data.get('temperature_2m', 25),
+            'humidity': weather_data.get('humidity', 60),
+            'ph': soil_props['ph'],
+            'rainfall': weather_data.get('precipitation', 0)
+        }])
+        
+        # Scale and predict
+        input_scaled = scaler.transform(input_data)
+        prediction = model.predict(input_scaled)[0]
+        
+        return {
+            "status": "success",
+            "location": {
+                "city": city,
+                "state": state,
+                "ecological_zone": soil_props['zone']
+            },
+            "soil_properties": soil_props,
+            "weather": weather_data,
+            "recommended_crop": CROP_DICT[prediction]
+        }
+        
+    except Exception as e:
+        return {"status": "error", "detail": str(e)}
     
 # Root endpoint
 @app.get("/")
@@ -216,58 +249,33 @@ def get_weather_only(city: str):
         return {"status": "success", "data": weather_data.dict()}
     except HTTPException as e:
         return {"status": "error", "detail": e.detail}
+    except ValueError as e:
+        return {"status": "error", "detail": "Error processing coordinates"}
+    except Exception as e:
+        return {"status": "error", "detail": str(e)}
     
 
 @app.get("/recommend-crops/{city}", status_code=200)
 async def recommend_crops(city: str):
     try:
-        # Get location coordinates (you would implement get_coordinates())
-        lat, lon, state = get_coordinates(city)  # This function should return latitude and longitude for the given city
+        # Get location and weather data
+        lat, lon, state = get_coordinates(city)
         weather_data = current_weather(lat, lon)
-        print(state)
         
         if 'error' in weather_data:
             return {"status": "error", "detail": weather_data['error']}
         
-        # Get soil properties for location
+        # Get soil properties
         soil_props = get_soil_properties_by_location(state)
-        
         if not soil_props:
             return {"status": "error", "detail": f"No soil data found for {state}"}
+            
+        # Get prediction
+        return predict_crop(city, state, weather_data, soil_props)
         
-        # Load model
-        model = joblib.load('best_crop_model.pkl')
-        scaler = joblib.load('scaler.pkl')
-        
-        # Prepare input
-        input_data = pd.DataFrame([{
-            'N': soil_props['N'],
-            'P': soil_props['P'],
-            'K': soil_props['K'],
-            'temperature': weather_data.get('temperature_2m', 25),  # Default temp if not available
-            'humidity': weather_data.get('humidity', 60),  
-            'ph': soil_props['ph'],
-            'rainfall': weather_data.get('precipitation', 0)  # Use precipitation as rainfall
-        }])
-        
-        # Scale and predict
-        input_scaled = scaler.transform(input_data)
-        prediction = model.predict(input_scaled)[0]
-        
-        return {
-            "status": "success",
-            "location": {
-                "city": city,
-                "state": state,
-                "ecological_zone": soil_props['zone']
-            },
-            "soil_properties": soil_props,
-            "weather": weather_data,
-            "recommended_crop": predicted_crop
-        }
-    
     except Exception as e:
         return {"status": "error", "detail": str(e)}
+    
 # api for forecasting
 @app.get("/weather/forecast/{city}", status_code=200)
 def get_weather_forecast_and_crop_recommendations(city: str):
