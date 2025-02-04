@@ -26,6 +26,8 @@ app.add_middleware(
     allow_methods=["*"],   
     allow_headers=["*"],   
 )
+# Initialize cache immediately
+FastAPICache.init(InMemoryBackend(), prefix="fastapi-cache")
 
 # Load ecological zones data
 with open('crop.json', 'r') as f:
@@ -233,7 +235,8 @@ def predict_crop(city: str, state: str, weather_data: dict, soil_props: dict):
     
 # Root endpoint
 @app.get("/")
-def read_root():
+@cache(expire=300)
+def read_root(status=200):
     about="Api that recommends growable crops based on weather temperature for a given location and soil texture."
     licenses = {'Full Name':"Samuel Peters", 'socials':{'github':"https://github.com/Petsamuel", "repository":"https://github.com/Petsamuel/weather-crop-API", "LinkedIn":"https:linkedIn.com/in/bieefilled"}, 'year':"2024"}
     
