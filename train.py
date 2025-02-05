@@ -37,38 +37,6 @@ def load_and_preprocess_data():
         logging.error(f"Error loading or preprocessing data: {e}")
         raise
 
-# def train_and_evaluate(test_size=0.2, random_state=42):
-#     # Load and scale data
-#     X, y = load_and_preprocess_data()
-#     scaler = MinMaxScaler()
-#     X_scaled = scaler.fit_transform(X)
-    
-#     # Split data
-#     X_train, X_test, y_train, y_test = train_test_split(
-#         X_scaled, y, test_size=test_size, random_state=random_state
-#     )
-    
-#     # Train model
-#     model = RandomForestClassifier(n_estimators=100, random_state=random_state)
-#     model.fit(X_train, y_train)
-    
-#     # Evaluate
-#     y_pred = model.predict(X_test)
-#     cv_scores = cross_val_score(model, X_scaled, y, cv=5)
-#     conf_matrix = confusion_matrix(y_test, y_pred)
-    
-#     # Plot confusion matrix
-#     plt.figure(figsize=(12, 8))
-#     sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', 
-#                 xticklabels=CROP_DICT.keys(), yticklabels=CROP_DICT.keys())
-#     plt.title('Confusion Matrix')
-#     plt.savefig('confusion_matrix.png')
-    
-#     # Save model artifacts
-#     joblib.dump(model, 'crop_recommendation_model.pkl')
-#     joblib.dump(scaler, 'scaler.pkl')
-    
-#     return model, cv_scores, classification_report(y_test, y_pred), model.feature_importances_
 
 def evaluate_classifiers(X_train, X_test, y_train, y_test):
     # Define classifiers
@@ -140,6 +108,7 @@ def test_crop_prediction(temperature, humidity, rainfall, N, P, K, ph):
     model = joblib.load('best_crop_model.pkl')
     scaler = joblib.load('scaler.pkl')
     
+    # Prepare input data
     input_data = pd.DataFrame([{
         'N': N,
         'P': P,
@@ -150,8 +119,13 @@ def test_crop_prediction(temperature, humidity, rainfall, N, P, K, ph):
         'rainfall': rainfall
     }])
     
+    # Scale input
     input_scaled = scaler.transform(input_data)
-    prediction = model.predict(input_scaled)[0]
+    
+    # Get predictions
+    predictions = model.predict(input_scaled)
+    
+    # Map predictions to crop names
     crop_dict = {
         1: 'rice', 2: 'maize', 3: 'chickpea', 4: 'kidneybeans',
         5: 'pigeonpeas', 6: 'mothbeans', 7: 'mungbean', 8: 'blackgram',
@@ -161,7 +135,8 @@ def test_crop_prediction(temperature, humidity, rainfall, N, P, K, ph):
         21: 'jute', 22: 'coffee'
     }
     
-    return {"prdiction=>":crop_dict[prediction]}
+    recommended_crops = [crop_dict.get(pred, "Unknown Crop") for pred in predictions]
+    return recommended_crops
 
 if __name__ == "__main__":
     results = train_and_evaluate()
@@ -173,7 +148,7 @@ if __name__ == "__main__":
     K = 43
     ph = 6.5
     crop = test_crop_prediction(temperature, humidity, rainfall, N, P, K, ph)
-    print(crop)
+    print(f"Recommended crops: {crop}")
     # for name, metrics in results.items():
     #     print(f"\n{name} Results:")
     #     print(f"Accuracy: {metrics['accuracy']:.3f}")

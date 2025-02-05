@@ -161,7 +161,7 @@ def get_weather_only(city: str):
     
     
 # api for forecasting
-@app.get("/weather/forecast/{city}", status_code=200)
+@app.get("/weather/forecast/{city}", status_code=200, tags=["weather forecast"], summary="Get the weather forecast and crop recommendations for a city")
 def get_weather_forecast_and_crop_recommendations(city: str):
     try:
         lat, lon = get_coordinates(city)
@@ -192,7 +192,10 @@ def get_weather_forecast(lat: float, lon: float):
         description=data['weather'][0]['main'],
     )
 
-@app.get("/current/weather/{city}", status_code=200)
+@app.get("/current/weather/{city}", status_code=200,
+         tag=["current weather"],
+         summary="Get the current weather of a city",
+         description="This endpoint returns the current weather of a city in Nigeria",)
 def get_current_weather(city: str):
     lat, lon = get_coordinates(city)
     current_data = current_weather(lat, lon)
@@ -209,7 +212,8 @@ def historical_weather_data(city: str, start_date: str, end_date: str):
     
 
 #health
-@app.get("/health", status_code=200, summary="Check the health of the API")
+@app.get("/health", status_code=200, summary="Check the health of the API", tags=["health"], 
+         description="This endpoint returns a message describing the status of this service")
 def health():
     # Returns a message describing the status of this service
     return {
