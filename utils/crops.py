@@ -1,10 +1,39 @@
 from typing import Dict, List
 import joblib
+import json
+import pandas as pd
 import logging
 from typing import Dict, Optional
 from models import WeatherData, Coordinates
+import numpy as np
+from typing import List, Dict
 
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
+
+# Load crop dictionary from JSON file
+with open('crop_dict.json', 'r') as f:
+    CROP_DICT = {int(k): v for k, v in json.load(f).items()}
+
+logging.info(f"Loaded crop dictionary: {CROP_DICT}")
+
+
+
+# Load crop data from crops.json
+with open("crops.json", "r") as f:
+    crop_data = json.load(f)
+
+# Load ecological zones data
+with open('zones.json', 'r') as f:
+    ECOLOGICAL_ZONES = json.load(f)
+    
+STATE_TO_ZONE = {}
+for zone, data in ECOLOGICAL_ZONES.items():
+    for state in data.get('States', []):        STATE_TO_ZONE[state.lower()] = zone
 
 def get_soil_properties_by_location(state: str):
     """Get soil properties based on state location"""

@@ -12,7 +12,6 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
 import joblib
-from sklearn.preprocessing import MinMaxScaler
 import logging
 import numpy as np
 from utils.weather import get_weather, current_weather, historical_weather, get_coordinates,get_weather_forecast
@@ -55,22 +54,10 @@ app.add_middleware(
 # Initialize cache immediately
 FastAPICache.init(InMemoryBackend(), prefix="fastapi-cache")
 
-# Load crop data from crops.json
-with open("crops.json", "r") as f:
-    crop_data = json.load(f)
-
 # Load ecological zones data
 with open('zones.json', 'r') as f:
     ECOLOGICAL_ZONES = json.load(f)
 
-# Load crop dictionary from JSON file
-with open('crop_dict.json', 'r') as f:
-    CROP_DICT = json.load(f)
-
-# Create state to zone mapping
-STATE_TO_ZONE = {}
-for zone, data in ECOLOGICAL_ZONES.items():
-    for state in data.get('States', []):        STATE_TO_ZONE[state.lower()] = zone
 
 @app.get("/secure", dependencies=[Depends(verify_api_key)])
 def secure_data():
@@ -139,7 +126,9 @@ def get_weather_only(city: str):
     status_code=200,
     summary="Get crops to plant in a location",
     description="Returns recommended crops to plant in a location",
-    tags=["Crops"]
+    tags=["Crops"],
+    dependencies=[Depends(verify_api_key)]
+    
 )
 @cache(expire=300)
 def get_crops_to_plant(crops: str, city: str):
@@ -248,7 +237,7 @@ def get_weather_forecast_and_crop_recommendations(city: str):
         return {"status": "error", "detail": e.detail}
 
 
-@app.get("/weather/history/{city}/{start_date}/{end_date}", status_code=200, summary="start_date and end_date: 2022-01-01, 2022-01-31", tags=["History"])
+@app.get("/weather/history/{city}/{start_date}/{end_date}", dependencies=[Depends(verify_api_key)], status_code=200, summary="start_date and end_date: 2022-01-01, 2022-01-31", tags=["History"])
 def historical_weather_data(city: str, start_date: str, end_date: str):
     #examples of start_date and end_date: 2022-01-01, 2022-01-31
     lat, lon, state = get_coordinates(city)
