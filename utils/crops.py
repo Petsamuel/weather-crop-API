@@ -2,6 +2,7 @@ from typing import Dict, List
 import joblib
 import logging
 from typing import Dict, Optional
+from models import WeatherData, Coordinates
 
 logger = logging.getLogger(__name__)
 

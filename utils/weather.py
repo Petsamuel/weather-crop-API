@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from dotenv import load_dotenv
+from models import WeatherData, Coordinates
 import requests
 import logging
 import os
