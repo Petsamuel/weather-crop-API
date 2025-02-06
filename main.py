@@ -210,11 +210,12 @@ def get_crops_to_plant(crops: str, city: str):
 
 # Get weather and recommendations for a city
 @app.get("/recommend-crops/{city}",
+    dependencies=[Depends(verify_api_key)], 
     status_code=200,
     tags=["Recommendations"],
     summary="Get crop recommendations",
     description="Returns recommended crops based on location and conditions")
-@cache( expire=300,dependencies=[Depends(verify_api_key)] )
+@cache( expire=300)
 async def recommend_crops(city: str):
     try:
         # Get location and weather data
