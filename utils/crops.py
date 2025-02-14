@@ -19,9 +19,7 @@ logger = logging.getLogger(__name__)
 with open('crop_dict.json', 'r') as f:
     CROP_DICT = {int(k): v for k, v in json.load(f).items()}
 
-logging.info(f"Loaded crop dictionary: {CROP_DICT}")
-
-
+# logging.info(f"Loaded crop dictionary: {CROP_DICT}")
 
 # Load crop data from crops.json
 with open("crops.json", "r") as f:

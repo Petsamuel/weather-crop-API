@@ -37,7 +37,6 @@ def load_and_preprocess_data():
         logging.error(f"Error loading or preprocessing data: {e}")
         raise
 
-
 def evaluate_classifiers(X_train, X_test, y_train, y_test):
     # Define classifiers
     classifiers = {
@@ -60,6 +59,7 @@ def evaluate_classifiers(X_train, X_test, y_train, y_test):
             'accuracy': accuracy_score(y_test, y_pred),
             'cv_scores': cross_val_score(clf, X_train, y_train, cv=5),
             'report': classification_report(y_test, y_pred),
+            'confusion_matrix': confusion_matrix(y_test, y_pred),
             'model': clf
         }
         
@@ -77,6 +77,53 @@ def plot_classifier_comparison(results):
     plt.tight_layout()
     plt.savefig('classifier_comparison.png')
 
+def plot_confusion_matrices(results, y_test):
+    for name, metrics in results.items():
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(metrics['confusion_matrix'], annot=True, fmt='d', cmap='Blues')
+        plt.title(f'Confusion Matrix for {name}')
+        plt.ylabel('True Label')
+        plt.xlabel('Predicted Label')
+        plt.tight_layout()
+        plt.savefig(f'confusion_matrix_{name}.png')
+
+def plot_cv_scores(results):
+    plt.figure(figsize=(10, 6))
+    for name, metrics in results.items():
+        plt.plot(metrics['cv_scores'], label=name)
+    plt.title('Cross-Validation Scores')
+    plt.xlabel('Fold')
+    plt.ylabel('Accuracy')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig('cv_scores.png')
+
+def plot_feature_importance(results, X):
+    best_clf = max(results.items(), key=lambda x: x[1]['accuracy'])[1]['model']
+    if hasattr(best_clf, 'feature_importances_'):
+        importances = best_clf.feature_importances_
+        indices = np.argsort(importances)[::-1]
+        plt.figure(figsize=(10, 6))
+        plt.title('Feature Importances')
+        plt.bar(range(X.shape[1]), importances[indices], align='center')
+        plt.xticks(range(X.shape[1]), X.columns[indices], rotation=90)
+        plt.tight_layout()
+        plt.savefig('feature_importances.png')
+
+def plot_pairplot(X, y):
+    df = X.copy()
+    df['label'] = y
+    sns.pairplot(df, hue='label', diag_kind='kde')
+    plt.tight_layout()
+    plt.savefig('pairplot.png')
+
+def plot_correlation_heatmap(X):
+    plt.figure(figsize=(12, 8))
+    sns.heatmap(X.corr(), annot=True, cmap='coolwarm', fmt='.2f')
+    plt.title('Correlation Heatmap')
+    plt.tight_layout()
+    plt.savefig('correlation_heatmap.png')
+
 def train_and_evaluate(test_size=0.2, random_state=42):
     # Load and scale data
     X, y = load_and_preprocess_data()
@@ -93,6 +140,11 @@ def train_and_evaluate(test_size=0.2, random_state=42):
     
     # Plot results
     plot_classifier_comparison(results)
+    plot_confusion_matrices(results, y_test)
+    plot_cv_scores(results)
+    plot_feature_importance(results, X)
+    plot_pairplot(pd.DataFrame(X_scaled, columns=X.columns), y)
+    plot_correlation_heatmap(pd.DataFrame(X_scaled, columns=X.columns))
     
     # Get best model
     best_clf = max(results.items(), key=lambda x: x[1]['accuracy'])
@@ -149,9 +201,8 @@ if __name__ == "__main__":
     ph = 6.5
     crop = test_crop_prediction(temperature, humidity, rainfall, N, P, K, ph)
     print(f"Recommended crops: {crop}")
-    # for name, metrics in results.items():
-    #     print(f"\n{name} Results:")
-    #     print(f"Accuracy: {metrics['accuracy']:.3f}")
-    #     print(f"CV Scores: {metrics['cv_scores'].mean():.3f} (+/- {metrics['cv_scores'].std() * 2:.3f})")
-    #     print(f"Classification Report:\n{metrics['report']}")
-        
+    for name, metrics in results.items():
+        print(f"\n{name} Results:")
+        print(f"Accuracy: {metrics['accuracy']:.3f}")
+        print(f"CV Scores: {metrics['cv_scores'].mean():.3f} (+/- {metrics['cv_scores'].std() * 2:.3f})")
+        print(f"Classification Report:\n{metrics['report']}")

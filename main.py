@@ -131,7 +131,7 @@ def get_weather_only(city: str):
     
 )
 @cache(expire=300)
-def get_crops_to_plant(crops: str, city: str):
+def recommend_crops_using_model(crops: str, city: str):
     try:
         # Get coordinates and state
         coordinates = get_coordinates(city)
@@ -148,7 +148,8 @@ def get_crops_to_plant(crops: str, city: str):
 
         # Get recommended crops for this zone
         zone = soil_props['zone']
-        recommended_crops = ECOLOGICAL_ZONES.get(zone, {}).get("Crops", [])
+        recommended_crops = [crop.lower() for crop in ECOLOGICAL_ZONES.get(zone, {}).get("Crops", [])]
+        crop_fertility = ECOLOGICAL_ZONES.get(zone, {}).get("Fertility", "Unknown")
 
         # Process user input crops
         crop_list = [crop.strip().lower() for crop in crops.split(',') if crop.strip()]
@@ -156,12 +157,16 @@ def get_crops_to_plant(crops: str, city: str):
         # Identify suitable and unsuitable crops
         suitable_crops = [crop for crop in crop_list if crop in recommended_crops]
         unsuitable_crops = [crop for crop in crop_list if crop not in recommended_crops]
+        crop_suitability = {
+            crop: f"{crop} is suitable" if crop in recommended_crops else f"{crop} is not suitable"
+            for crop in crop_list
+        }
 
         # Log extracted data
-        logger.info(f"Fetching crops for city: {city}, state: {state}, zone: {zone}")
-        logger.info(f"User entered crops: {crop_list}")
-        logger.info(f"Suitable crops: {suitable_crops}")
-        logger.info(f"Unsuitable crops: {unsuitable_crops}")
+        # logger.info(f"Fetching crops for city: {city}, state: {state}, zone: {zone}")
+        # logger.info(f"User entered crops: {crop_list}")
+        # logger.info(f"Suitable crops: {suitable_crops}")
+        # logger.info(f"Unsuitable crops: {unsuitable_crops}")
 
         # Prepare response
         response = {
@@ -176,6 +181,8 @@ def get_crops_to_plant(crops: str, city: str):
             "recommended_crops": recommended_crops,
             "user_crops": crop_list,
             "suitable_crops": suitable_crops,
+            "crop_suitability": crop_suitability,
+            "crop_fatility": crop_fertility
         }
 
         # If some crops are unsuitable, return a warning
@@ -255,7 +262,7 @@ def health():
         "status":"success",
         "message":"The service is running",
       "timestamp": datetime.utcnow().isoformat(),
-         "response_time": response_time,
+        "response_time": response_time,
         "version": "0.0.1"
     }
 
